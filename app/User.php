@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAdmin()
+    {
+        return $this->admin; // this looks for an admin column in your users table
+    }
+
+    public function isOwner()
+    {
+      return $this->owner; // this looks for an owner column in your users table
+    }
 }
