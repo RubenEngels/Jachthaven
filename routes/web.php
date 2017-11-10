@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+// require specific routes Here
+require __DIR__ . '/Admin/DashboardRoutes.php';
