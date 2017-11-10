@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        Blade::if('role', function ($role) {
+          try {
+            if ( Auth::check() && Auth::user()->{'is' . $role}() )
+            {
+                return true;
+            }
+            return false;
+          } catch (\Exception $e) {
+            return false;
+          }
+        });
     }
 
     /**
