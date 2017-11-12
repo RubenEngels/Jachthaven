@@ -27,6 +27,6 @@ class UserController extends Controller
       Auth::user()->image = strtolower($imageName);
       Auth::user()->save();
 
-      return redirect()->back()->with('alter', 'Uw wijzigingen zijn sucessvol opgeslagen!');
+      return redirect()->back()->with('status', 'Uw wijzigingen zijn sucessvol opgeslagen!');
     }
 }
