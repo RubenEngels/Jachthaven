@@ -37,6 +37,8 @@ class AdminController extends Controller
 
       $settings->save();
 
-      return redirect()->back();
+      return redirect()
+        ->back()
+        ->with('status', 'Uw wijzigingen zijn succesvol opgeslagen!');
     }
 }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top" style="background-color:rgba(214, 214, 214,0.7)">
     <div class="container">
         <div class="navbar-header">
 
