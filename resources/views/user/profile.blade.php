@@ -5,7 +5,7 @@
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading" style="text-align:center;">
-          <h3>Je eigen profiel</h3>
+          <h3>Je eigen profiel <i class="fa fa-user" aria-hidden="true"></i> </h3>
         </div>
         <div class="panel-body">
           <div class="row">
@@ -16,6 +16,40 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-6">
+              <form class="" action="/user/profile" method="post">
+                {!! csrf_field() !!}
+                <label class="form-label">Uw naam</label>
+                <input type="text" name="name" class="form-control" value="{{ $user->name }}">
+                <br>
+                <label class="form-label">E-Mail</label>
+                <input type="email" name="email" class="form-control" value="{{ $user->email }}">
+                <br>
+                <label class="form-label">Stad</label>
+                <input type="text" name="city" class="form-control" value="{{ $user->city }}">
+                <br>
+                <label class="form-label">Straat + Huisnummer</label>
+                <input type="text" name="street" class="form-control" value="{{ $user->street }}">
+                <br>
+                <label class="form-label">Postcode</label>
+                <input type="text" name="zip" class="form-control" value="{{ $user->zip }}">
+                <br>
+                <label class="form-label">Tel. Nummer</label>
+                <input type="text" name="tel" class="form-control" value="{{ $user->tel }}">
+                <br>
+
+                <button type="submit" class="btn btn-lg btn-primary">Sla op!</button>
+              </form>
+            </div>
+            <div class="col-md-6">
+              <img src="/img/user_icon.png" alt="test" style="opacity:0.05">
+            </div>
         </div>
       </div>
     </div>

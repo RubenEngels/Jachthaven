@@ -29,4 +29,22 @@ class UserController extends Controller
 
       return redirect()->back()->with('status', 'Uw wijzigingen zijn sucessvol opgeslagen!');
     }
+
+    public function postProfile(Request $request)
+    {
+      $user = Auth::user();
+
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->city = $request->city;
+      $user->street = $request->street;
+      $user->zip = $request->zip;
+      $user->tel = $request->tel;
+
+      $user->save();
+
+      return redirect()
+        ->back()
+        ->with('status', 'Uw wijzigingen zijn succesvol opgeslagen!');
+    }
 }
