@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ContactForm;
 use App\MailingList;
+use App\Events;
 
 class GuestController extends Controller
 {
@@ -40,5 +41,13 @@ class GuestController extends Controller
     return redirect()
       ->back()
       ->with('status', 'Uw bericht is succesvol verstuur! We nemen zo spoedig mogelijk contact met u op.');
+  }
+
+  public function getAgenda()
+  {
+    $events = Events::orderBy('date', 'asc')->get();
+
+    return view('agenda')
+      ->with('events', $events);
   }
 }

@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contact', 'GuestController@getContact');
 Route::post('/contact', 'GuestController@postContact');
 
+Route::get('/agenda', 'GuestController@getAgenda');
+
 // require specific routes Here
 require __DIR__ . '/Admin/AdminRoutes.php';
 require __DIR__ . '/User/UserRoutes.php';
