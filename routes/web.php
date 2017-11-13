@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'GuestController@getIndex');
+Route::post('/', 'GuestController@postNewsLetter');
 
 Auth::routes();
 

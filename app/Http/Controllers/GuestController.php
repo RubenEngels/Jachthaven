@@ -4,12 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ContactForm;
+use App\MailingList;
 
 class GuestController extends Controller
 {
   public function getIndex()
   {
     return view('index');
+  }
+
+  public function postNewsLetter(Request $request)
+  {
+    MailingList::create([
+      'email' => $request->email
+    ]);
+
+    return redirect()
+      ->back()
+      ->with('status', 'U bent succesvol ingeschreven voor de wekelijkse nieuwsbrief');
   }
 
   public function getContact()
