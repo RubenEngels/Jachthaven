@@ -11,13 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'GuestController@getIndex');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/contact', 'GuestController@getContact');
+Route::post('/contact', 'GuestController@postContact');
 
 // require specific routes Here
 require __DIR__ . '/Admin/AdminRoutes.php';

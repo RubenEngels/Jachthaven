@@ -19,6 +19,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 &nbsp;
+                @include('layouts.elements._public_pages')
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -33,8 +34,7 @@
 
                 <!-- Authentication Links -->
               @guest
-                <li><a href="{{ route('login') }}">Login</a></li>
-                {{-- <li><a href="{{ route('register') }}">Register</a></li> --}}
+                <li><a href="{{ route('login') }}">Log in <i class="fa fa-sign-in" aria-hidden="true"></i> </a></li>
               @else
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" style="position:relative;padding-left:50px;">
