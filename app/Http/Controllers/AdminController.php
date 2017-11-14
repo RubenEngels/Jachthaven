@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Settings;
 use App\Events;
+use App\Documents;
 
 class AdminController extends Controller
 {
@@ -72,5 +73,34 @@ class AdminController extends Controller
       return redirect()
         ->back()
         ->with('status', $message);
+    }
+
+    public function getDocuments()
+    {
+      $documents = Documents::orderBy('id', 'desc')->paginate(5);
+
+      return view('admin.documents')
+        ->with('documents', $documents);
+    }
+
+    public function postEditDocument(Request $request)
+    {
+      $document = Documents::find($request->id);
+
+      // dd($document->name);
+
+      $document->name = $request->name;
+      $document->public = ($request->public == 'false') ? false : true;
+
+      $document->save();
+
+      return redirect()
+        ->back()
+        ->with('status', 'Uw wijzigingen zijn succesvol ogeslagen!');
+    }
+
+    public function postNewDocument(Request $request)
+    {
+      $document = new Documents;
     }
 }
