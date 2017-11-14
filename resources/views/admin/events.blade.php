@@ -58,6 +58,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                        <a href="/admin/events/delete/{{ $event->id }}" class="btn btn-danger">Verwijderen</a>
                         <button type="submit" class="btn btn-primary">Opslaan</button>
                       </div>
                     </form>

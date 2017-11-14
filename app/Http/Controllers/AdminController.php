@@ -75,6 +75,17 @@ class AdminController extends Controller
         ->with('status', $message);
     }
 
+    public function getDeleteEvents($id)
+    {
+      $event = Events::findOrFail($id);
+
+      $event->delete();
+
+      return redirect()
+        ->back()
+        ->with('status', 'Het evenement is succesvol verwijderd!');
+    }
+
     public function getDocuments()
     {
       $documents = Documents::orderBy('id', 'desc')->paginate(5);
@@ -102,5 +113,16 @@ class AdminController extends Controller
     public function postNewDocument(Request $request)
     {
       $document = new Documents;
+    }
+
+    public function getDeleteDocument($id)
+    {
+      $document = Documents::findOrFail($id);
+
+      $document->delete();
+
+      return redirect()
+        ->back()
+        ->with('status', 'Het document is succesvol verwijderd!');
     }
 }
