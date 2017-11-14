@@ -65,5 +65,10 @@
             </div>
         </div>
     </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 text-center">
+        <img src="img/login_icon.png" alt="" style="opacity:0.1;">
+      </div>
+    </div>
 </div>
 @endsection

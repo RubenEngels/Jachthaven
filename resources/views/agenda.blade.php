@@ -1,22 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+  {{-- idea inschrijven voor envent --}}
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h3>Opkomende evenementen</h3>
+        <h3>Geplande evenementen</h3>
         <hr style="border:.5px solid gray">
       </div>
     </div>
     <div class="row">
       <div class="col-md-2">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Op deze pagina vind u het overzicht met evenementen die bij ons geplant zijn. <br>Als u vragen heeft over een van deze evenementen of over iets anders, kan u contact opnemen via onze <a href="/contact">contact</a> pagina.
       </div>
       <div class="col-md-7">
         @foreach($events as $event)
-          
-          <hr>
+          <p><b>{{ $event->name }}</b></p>
+          <p>
+            <b>Waar / Wanneer:</b> <i>{{ $event->location }} / {{ $event->date->format('d/m/Y')}}</i>
+          </p>
+          <p>
+            <b>Van:</b> <i>{{ $event->from }}</i> uur - <b>Tot:</b> <i>{{ $event->till }}</i> uur
+          </p>
+          <hr style="border:.5px solid gray">
         @endforeach
+        {{ $events->links() }}
       </div>
       <div class="col-md-3">
           <img src="/img/calendar_icon.png" alt="" style="opacity:0.1;">

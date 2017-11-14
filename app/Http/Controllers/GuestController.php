@@ -45,7 +45,7 @@ class GuestController extends Controller
 
   public function getAgenda()
   {
-    $events = Events::orderBy('date', 'asc')->get();
+    $events = Events::orderBy('date', 'asc')->paginate(5);
 
     return view('agenda')
       ->with('events', $events);
