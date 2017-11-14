@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Settings;
+use App\Events;
 
 class AdminController extends Controller
 {
@@ -39,6 +40,37 @@ class AdminController extends Controller
 
       return redirect()
         ->back()
-        ->with('status', 'Uw wijzigingen zijn succesvol opgeslagen!');
+        ->with('status', 'Uw wijzigingen zijn succesvol ogeslagen!');
+    }
+
+    public function getEvents()
+    {
+      $events = Events::orderBy('date', 'asc')->paginate(4);
+
+      return view('admin.events')
+        ->with('events', $events);
+    }
+
+    public function postEvents(Request $request)
+    {
+      if (isset($request->id)) {
+        $event = Events::find($request->id);
+        $message = 'Uw wijzigingen zijn succesvol ogeslagen!';
+      } else {
+        $event = new Events;
+        $message = 'Uw evenement is succesvol aangemaakt!';
+      }
+
+      $event->name = $request->name;
+      $event->location = $request->location;
+      $event->date = $request->date;
+      $event->from = $request->from;
+      $event->till = $request->till;
+
+      $event->save();
+
+      return redirect()
+        ->back()
+        ->with('status', $message);
     }
 }
