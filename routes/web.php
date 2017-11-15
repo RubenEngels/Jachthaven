@@ -23,6 +23,9 @@ Route::post('/contact', 'GuestController@postContact');
 
 Route::get('/agenda', 'GuestController@getAgenda');
 
+Route::get('/documents', 'GuestController@getPublicDocuments');
+Route::get('/documents/download/{id}', 'GuestController@getDownloadDocuments');
+
 // require specific routes Here
 require __DIR__ . '/Admin/AdminRoutes.php';
 require __DIR__ . '/User/UserRoutes.php';

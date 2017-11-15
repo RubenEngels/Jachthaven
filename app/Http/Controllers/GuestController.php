@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ContactForm;
 use App\MailingList;
 use App\Events;
+use App\Documents;
 
 class GuestController extends Controller
 {
@@ -49,5 +50,24 @@ class GuestController extends Controller
 
     return view('agenda')
       ->with('events', $events);
+  }
+
+  public function getPublicDocuments()
+  {
+    if (\Auth::guard()->check()) {
+      $documents = Documents::paginate(3);
+    } else {
+      $documents = Documents::where('public', true)->paginate(3);
+    }
+
+    return view('documents')
+      ->with('documents', $documents);
+  }
+
+  public function getDownloadDocuments($id)
+  {
+    $document = Documents::findOrFail($id);
+
+    return response()->download(public_path($document->link));
   }
 }
