@@ -14,4 +14,5 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::post('documents', 'AdminController@postEditDocument');
   Route::post('documents/new', 'AdminController@postNewDocument');
   Route::get('/documents/delete/{id}', 'AdminController@getDeleteDocument');
+  Route::get('/documents/download/{id}', 'AdminController@getDownloadDocument');
 });

@@ -9,6 +9,7 @@
             <h4><i>Gedeelde Documenten</i> </h4>
           </div>
           <div class="panel-body">
+            @if (null !== $documents->first())
               @foreach ($documents as $document)
                 <div class="row" style="padding-bottom:20px;">
                   <div class="col-md-2">
@@ -21,11 +22,13 @@
                       <br>
                       <b>Gepubliceerd op:</b> <i>{{ $document->created_at->format('d/m/Y H:i') }}</i>
                       <br>
-                      <a href="#"  data-toggle="modal" data-target="#{{ $document->id }}" class="btn btn-sm btn-info">Wijzig</a>
-                      <a href="linktofile" class="btn btn-sm btn-default">Download</a>
+                      <a href="#"  data-toggle="modal" data-target="#{{ $document->id }}" class="btn btn-sm btn-primary">Wijzig</a>
+                      <a href="/admin/documents/download/{{ $document->id }}" class="btn btn-sm btn-default">Download</a>
                     </p>
                   </div>
                 </div>
+
+                {{--  modal for changing --}}
                 <div class="modal fade" id="{{ $document->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -62,7 +65,9 @@
                 </div>
               @endforeach
               {{ $documents->links() }}
-
+            @else
+              <h4>Er zijn nog geen bestanden gedeeld!</h4>
+            @endif
           </div>
         </div>
       </div>
@@ -72,7 +77,19 @@
             <h4><i>Deel een nieuw document</i> </h4>
           </div>
           <div class="panel-body">
-
+            <form action="/admin/documents/new" method="post" enctype="multipart/form-data">
+              {{ csrf_field() }}
+              <label class="form-label">Link naar bestand</label>
+              <input type="file" name="file" class="form-control" required>
+              <br>
+              <label class="form-label">Publiek Beschikbaar</label>
+              <select class="form-control" name="public" required>
+                <option value="true">Voor iedereen beschikbaar</option>
+                <option value="false">Alleen voor leden beschikbaar</option>
+              </select>
+              <br>
+              <button type="submit" class="btn btn-primary">Opslaan!</button>
+            </form>
           </div>
         </div>
       </div>

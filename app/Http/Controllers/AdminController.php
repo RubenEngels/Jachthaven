@@ -112,7 +112,22 @@ class AdminController extends Controller
 
     public function postNewDocument(Request $request)
     {
-      $document = new Documents;
+      $request->validate([
+        'file' => 'required|max:4096',
+      ]);
+
+      $fileName = time().'.'. $request->file->getClientOriginalExtension();
+      $request->file->move(public_path('/uploads/documents/'), $fileName);
+
+      Documents::create([
+        'name' => $request->file->getClientOriginalName(),
+        'link' => '/uploads/documents/' . $fileName,
+        'public' => ($request->public == 'true') ? true : false,
+      ]);
+
+      return redirect()
+        ->back()
+        ->with('status', 'Uw document is successvol gepubliceerd!');
     }
 
     public function getDeleteDocument($id)
@@ -124,5 +139,12 @@ class AdminController extends Controller
       return redirect()
         ->back()
         ->with('status', 'Het document is succesvol verwijderd!');
+    }
+
+    public function getDownloadDocument($id)
+    {
+      $document = Documents::findOrFail($id);
+
+      return response()->download(public_path($document->link));
     }
 }
