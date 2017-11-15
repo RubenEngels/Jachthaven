@@ -2,7 +2,7 @@
 /public/hot
 /public/storage
 /public/uploads/avatars
-/public/upploads/documents
+/public/uploads/documents
 !/public/uploads/avatars/default_user_icon.png
 /storage/*.key
 /vendor
