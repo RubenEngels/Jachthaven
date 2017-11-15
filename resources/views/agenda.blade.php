@@ -18,17 +18,21 @@
         <br>&nbsp;
       </div>
       <div class="col-md-7">
-        @foreach($events as $event)
-          <p><b>{{ $event->name }}</b></p>
-          <p>
-            <b>Waar / Wanneer:</b> <i>{{ $event->location }} <b>/</b> {{ $event->date->format('d/m/Y')}}</i>
-          </p>
-          <p>
-            <b>Van:</b> <i>{{ $event->from }}</i> uur - <b>Tot:</b> <i>{{ $event->till }}</i> uur
-          </p>
-          <hr style="border:.5px solid gray">
-        @endforeach
-        {{ $events->links() }}
+        @if(null !== $events->first())
+          @foreach($events as $event)
+            <p><b>{{ $event->name }}</b></p>
+            <p>
+              <b>Waar / Wanneer:</b> <i>{{ $event->location }} <b>/</b> {{ $event->date->format('d/m/Y')}}</i>
+            </p>
+            <p>
+              <b>Van:</b> <i>{{ $event->from }}</i> uur - <b>Tot:</b> <i>{{ $event->till }}</i> uur
+            </p>
+            <hr style="border:.5px solid gray">
+          @endforeach
+          {{ $events->links() }}
+        @else
+          <h4>Er zijn nog geen evenementen gepland!</h4>
+        @endif
       </div>
       <div class="col-md-3">
           <img src="/img/calendar_icon.png" id="img_calendar" style="opacity:0.1;">

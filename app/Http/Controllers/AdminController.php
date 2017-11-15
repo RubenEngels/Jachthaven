@@ -11,11 +11,6 @@ use App\Documents;
 
 class AdminController extends Controller
 {
-    public function getDashboard()
-    {
-      return view('admin.dashboard');
-    }
-
     public function getSettings()
     {
       return view('admin.settings')

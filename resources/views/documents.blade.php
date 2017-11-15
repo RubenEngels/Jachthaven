@@ -31,6 +31,7 @@
           @endforeach
           {{ $documents->links() }}
         @else
+          <br>
           <h4>Er zijn nog geen bestanden gedeeld!</h4>
         @endif
       </div>
