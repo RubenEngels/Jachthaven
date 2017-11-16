@@ -57,6 +57,12 @@ class AdminController extends Controller
         $message = 'Uw evenement is succesvol aangemaakt!';
       }
 
+      $request->validate([
+        'date' => 'required|after_or_equal:today',
+        'from' => ["regex:/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/"],
+        'till' => ["regex:/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/"],
+      ]);
+
       $event->name = $request->name;
       $event->location = $request->location;
       $event->date = $request->date;

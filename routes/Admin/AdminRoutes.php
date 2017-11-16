@@ -14,7 +14,8 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::get('documents/delete/{id}', 'AdminController@getDeleteDocument');
   Route::get('documents/download/{id}', 'AdminController@getDownloadDocument');
 
-  Route::get('notifications', 'AdminDashboardController@getNotifications');
+  Route::get('/notifications/delete/{id}', 'AdminDashboardController@getDeleteNotifications');
+  Route::post('notifications', 'AdminDashboardController@postNotifications');
 
   Route::get('dashboard', 'AdminDashboardController@getDashboard');
 });

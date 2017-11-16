@@ -24,6 +24,12 @@
           </div>
         @endif
 
+        @if(session('notifications'))
+          <div class="alert alert-success text-center">
+            Er zijn {{ session('notifications') }} nieuwe melding(en)! Klik <a href="/login">hier</a> om in te loggen.
+          </div>
+        @endif
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -50,5 +56,31 @@
         $('#alert').hide();
       }, 5000)
     </script>
+    <!-- Modal -->
+    <div class="modal fade" id="inboxModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><b>Inbox</b></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <?php $active = App\UserNotifications::where('show', true)->get(); ?>
+            {{-- {{ dd($active)}} --}}
+
+            @foreach($active as $notification)
+              {{-- {{ dd($notification)}} --}}
+              <p><b>Melding:</b> {{ $notification->message }} </p>
+              <hr>
+            @endforeach
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

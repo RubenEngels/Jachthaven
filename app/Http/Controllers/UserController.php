@@ -47,4 +47,9 @@ class UserController extends Controller
         ->back()
         ->with('status', 'Uw wijzigingen zijn succesvol opgeslagen!');
     }
+
+    public function getDashboard()
+    {
+      return view('user.dashboard');
+    }
 }

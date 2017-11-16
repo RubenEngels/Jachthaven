@@ -7,10 +7,21 @@ use App\ContactForm;
 use App\MailingList;
 use App\Events;
 use App\Documents;
+use App\UserNotifications;
 
 class GuestController extends Controller
 {
   public function getIndex()
+  {
+    $active = UserNotifications::where('show', true);
+    if (null !== $active->first()) {
+      return redirect('/start')
+        ->with('notifications', count($active));
+    }
+    return redirect('/home');
+  }
+
+  public function getHome()
   {
     return view('index');
   }

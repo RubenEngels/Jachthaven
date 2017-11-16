@@ -10,14 +10,40 @@ class AdminDashboardController extends Controller
 {
   public function getDashboard()
   {
-    return view('admin.dashboard.index');
+    $active = UserNotifications::where('show', true)->paginate(2);
+
+    return view('admin.dashboard.index')
+    ->with('active', $active);
   }
 
-  public function getNotifications()
+  public function postNotifications(Request $request)
   {
-    $activeNotifications = UserNotifications::where('active', true)->paginate(3);
-    $notifications = UserNotifications::where('active', false)->paginate(5);
+    if (isset($request->id)) {
+      $notification = UserNotifications::findOrFail($request->id);
+      $save = 'Uw wijzigingen zijn succesvol opgeslagen!';
+    } else {
+      $notification = new UserNotifications;
+      $save = 'De melding is succesvol aangemaakt!';
+    }
 
-    // return view('admin.dashboard.notifications');
+    $notification->message = $request->message;
+
+    $notification->save();
+
+    return redirect()
+      ->back()
+      ->with('status', $save);
+  }
+
+  public function getDeleteNotifications($id)
+  {
+    $notification = UserNotifications::findOrFail($id);
+
+    $notification->show = false;
+    $notification->save();
+
+    return redirect()
+      ->back()
+      ->with('status', 'De melding is succesvol verwijderd!');
   }
 }

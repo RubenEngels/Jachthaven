@@ -21,6 +21,6 @@ class Owner
           return $next($request);
       }
 
-      return redirect('home');
+      return redirect('/user/dashboard');
     }
 }

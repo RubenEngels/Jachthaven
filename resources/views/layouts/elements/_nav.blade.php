@@ -29,7 +29,10 @@
                 @include('layouts.elements._admin_nav')
               @endrole
 
-
+              @guest
+              @else
+                  <li><a href="#" data-toggle="modal" data-target="#inboxModal">Inbox <i class="fa fa-inbox" aria-hidden="true"></i> </a> </li>
+              @endguest
 
 
                 <!-- Authentication Links -->
@@ -59,6 +62,7 @@
                 </li>
               @endguest
             </ul>
+
         </div>
     </div>
 </nav>

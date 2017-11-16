@@ -12,11 +12,14 @@
 */
 
 Route::get('/', 'GuestController@getIndex');
+Route::get('/start', 'GuestController@getHome');
 Route::post('/', 'GuestController@postNewsLetter');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function () {
+  return redirect('/user/dashboard');
+});
 
 Route::get('/contact', 'GuestController@getContact');
 Route::post('/contact', 'GuestController@postContact');
