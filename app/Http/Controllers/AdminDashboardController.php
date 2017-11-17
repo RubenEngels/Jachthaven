@@ -5,15 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\UserNotifications;
+use App\MailingList;
+use App\Newsletters;
 
 class AdminDashboardController extends Controller
 {
   public function getDashboard()
   {
     $active = UserNotifications::where('show', true)->paginate(2);
+    $mailing_list = MailingList::paginate(5);
+    $newsletters = Newsletters::paginate(5);
 
     return view('admin.dashboard.index')
-    ->with('active', $active);
+    ->with('active', $active)
+    ->with('mailing_list', $mailing_list)
+    ->with('newsletters', $newsletters);
   }
 
   public function postNotifications(Request $request)
@@ -45,5 +51,47 @@ class AdminDashboardController extends Controller
     return redirect()
       ->back()
       ->with('status', 'De melding is succesvol verwijderd!');
+  }
+
+  public function getMailDelete($id)
+  {
+    $recipient = MailingList::findOrFail($id);
+
+    $recipient->delete();
+
+    return redirect()
+      ->back()
+      ->with('status', 'De onvanger is succesvol verwijderd!');
+  }
+
+  public function postNewsletter(Request $request)
+  {
+    if (isset($request->id)) {
+      $newsletter = Newsletters::findOrFail($request->id);
+      $message = 'Uw wijzingen zijn succesvol opgeslagen!';
+    } else {
+      $newsletter = new Newsletters;
+      $message = 'Uw nieuwsbrief is succesvol aangemaakt!';
+    }
+
+    $newsletter->name = $request->name;
+    $newsletter->content = $request->content;
+
+    $newsletter->save();
+
+    return redirect()
+      ->back()
+      ->with('status', $message);
+  }
+
+  public function getDeleteNewsletter($id)
+  {
+    $recipient = Newsletters::findOrFail($id);
+
+    $recipient->delete();
+
+    return redirect()
+      ->back()
+      ->with('status', 'De nieuwsbrief is succesvol verwijderd!');
   }
 }

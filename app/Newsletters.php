@@ -4,11 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MailingList extends Model
+class Newsletters extends Model
 {
-    public $table = 'mailing_lists';
-
-    protected $fillable = ['email'];
+    protected $fillable = ['content', 'name'];
 
     protected $dates = ['created_at'];
 }
