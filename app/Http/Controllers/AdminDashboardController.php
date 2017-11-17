@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\UserNotifications;
 use App\MailingList;
 use App\Newsletters;
+use App\Mail\Newsletter;
 
 class AdminDashboardController extends Controller
 {
@@ -93,5 +94,23 @@ class AdminDashboardController extends Controller
     return redirect()
       ->back()
       ->with('status', 'De nieuwsbrief is succesvol verwijderd!');
+  }
+
+  public function sendMail(Request $request)
+  {
+
+    if ($request->to == 'everyone') {
+      $mailing_list = MailingList::all();
+
+      foreach ($mailing_list as $user) {
+        \Mail::to($user->email)->send(new Newsletter($request->newsletter));
+      }
+    } else {
+      \Mail::to($request->to)->send(new Newsletter($request->newsletter));
+    }
+
+    return redirect()
+      ->back()
+      ->with('status', 'De nieuwsbrief is succesvol verstuurd!');
   }
 }

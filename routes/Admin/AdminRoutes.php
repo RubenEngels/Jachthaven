@@ -22,5 +22,7 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::post('/dashboard/newsletter', 'AdminDashboardController@postNewsletter');
   Route::get('/dashboard/newsletter/delete/{id}', 'AdminDashboardController@getDeleteNewsletter');
 
+  Route::post('/dashboard/newsletter/send', 'AdminDashboardController@sendMail');
+
   Route::get('dashboard', 'AdminDashboardController@getDashboard');
 });

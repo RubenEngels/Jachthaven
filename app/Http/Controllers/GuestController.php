@@ -18,7 +18,7 @@ class GuestController extends Controller
       return redirect('/start')
         ->with('notifications', count($active));
     }
-    return redirect('/home');
+    return redirect('/start');
   }
 
   public function getHome()
