@@ -1,3 +1,3 @@
 @component('mail::message')
-{{ $newsletter->content }}
+{!! $newsletter->content !!}
 @endcomponent
