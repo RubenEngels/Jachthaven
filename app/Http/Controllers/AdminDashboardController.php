@@ -9,6 +9,7 @@ use App\MailingList;
 use App\Newsletters;
 use App\Mail\Newsletter;
 use App\Invoice;
+use App\InvoiceAttributes;
 use App\User;
 use App\CreditedInvoices;
 use Auth;
@@ -17,10 +18,10 @@ class AdminDashboardController extends Controller
 {
   public function getDashboard()
   {
-    $active = UserNotifications::where('show', true)->paginate(2);
-    $mailing_list = MailingList::paginate(5);
-    $newsletters = Newsletters::paginate(5);
-    $users = User::paginate(5);
+    $active = UserNotifications::where('show', true)->paginate(2, ['*'], 'notifications');
+    $mailing_list = MailingList::paginate(5, ['*'], 'mailing');
+    $newsletters = Newsletters::paginate(5, ['*'], 'newsletter');
+    $users = User::paginate(5, ['*'], 'users');
 
     return view('admin.dashboard.index')
     ->with('active', $active)
@@ -131,5 +132,56 @@ class AdminDashboardController extends Controller
     return redirect()
       ->back()
       ->with('status', 'De factuur is succesvol gekrediteerd!');
+  }
+
+  public function getDeleteInvoice($id)
+  {
+    $invoice = Invoice::findOrFail($id);
+
+    $invoice->delete();
+
+    return redirect()
+      ->back()
+      ->with('status', 'De factuur is succesvol verwijderd!');
+  }
+
+  public function postNewInvoice(Request $request)
+  {
+    $final = [];
+    $i = 0;
+    foreach ($request->item_name as $name) {
+      $final[$i]['name'] = $name;
+      $i++;
+    }
+    $i = 0;
+    foreach ($request->item_price as $price) {
+      $final[$i]['price'] = $price;
+      $i++;
+    }
+    $i = 0;
+    foreach ($request->item_quantity as $quantity) {
+      $final[$i]['quantity'] = $quantity;
+      $i++;
+    }
+    collect($final);
+
+    $id = \DB::table('invoices')->insertGetId([
+      'name' => $request->name,
+      'user_id' => $request->for,
+      'sendDate' => \Carbon\Carbon::now(),
+      'dueDate' => \Carbon\Carbon::parse($request->dueDate),
+    ]);
+
+    foreach ($final as $line) {
+      InvoiceAttributes::create([
+        'invoice_id' => $id,
+        'name' => $line['name'],
+        'price' => $line['price'],
+        'quantity' => $line['quantity'],
+      ]);
+    }
+    return redirect()
+      ->back()
+      ->with('status', 'De factuur is succesvol aangemaakt!');
   }
 }
