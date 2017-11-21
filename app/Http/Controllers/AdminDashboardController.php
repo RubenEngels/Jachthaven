@@ -8,6 +8,10 @@ use App\UserNotifications;
 use App\MailingList;
 use App\Newsletters;
 use App\Mail\Newsletter;
+use App\Invoice;
+use App\User;
+use App\CreditedInvoices;
+use Auth;
 
 class AdminDashboardController extends Controller
 {
@@ -16,11 +20,13 @@ class AdminDashboardController extends Controller
     $active = UserNotifications::where('show', true)->paginate(2);
     $mailing_list = MailingList::paginate(5);
     $newsletters = Newsletters::paginate(5);
+    $users = User::paginate(5);
 
     return view('admin.dashboard.index')
     ->with('active', $active)
     ->with('mailing_list', $mailing_list)
-    ->with('newsletters', $newsletters);
+    ->with('newsletters', $newsletters)
+    ->with('users', $users);
   }
 
   public function postNotifications(Request $request)
@@ -112,5 +118,18 @@ class AdminDashboardController extends Controller
     return redirect()
       ->back()
       ->with('status', 'De nieuwsbrief is succesvol verstuurd!');
+  }
+
+  public function postCreditInvoice(Request $request, $id)
+  {
+    CreditedInvoices::create([
+      'invoice_id' => $id,
+      'reason' => $request->reason,
+      'amount' => $request->amount,
+    ]);
+
+    return redirect()
+      ->back()
+      ->with('status', 'De factuur is succesvol gekrediteerd!');
   }
 }

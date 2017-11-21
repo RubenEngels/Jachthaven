@@ -25,4 +25,6 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::post('/dashboard/newsletter/send', 'AdminDashboardController@sendMail');
 
   Route::get('dashboard', 'AdminDashboardController@getDashboard');
+
+  Route::post('/dashboard/credit/invoice/{id}', 'AdminDashboardController@postCreditInvoice');
 });

@@ -7,4 +7,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
   Route::post('/profile', 'UserController@postProfile');
 
   Route::post('/profile/photo', 'UserController@postPhoto');
+
+  Route::get('/invoice/pdf/{id}', 'UserController@getInvoicePdf');
 });

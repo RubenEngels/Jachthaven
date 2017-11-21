@@ -33,8 +33,6 @@ Route::get('/documents/download/{id}', 'GuestController@getDownloadDocuments');
 require __DIR__ . '/Admin/AdminRoutes.php';
 require __DIR__ . '/User/UserRoutes.php';
 
-Route::get('/mailable', function () {
-
-
-    return new App\Mail\Newsletter(4);
+Route::get('/test', function () {
+  dd(Auth::user()->invoice->first()->isCredited());
 });

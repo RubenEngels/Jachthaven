@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
       return $this->owner; // this looks for an owner column in your users table
     }
+
+    public function invoice()
+    {
+      return $this->hasMany('App\Invoice');
+    }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
+use App\Invoice;
 use Auth;
+use PDF;
 
 class UserController extends Controller
 {
@@ -51,5 +53,18 @@ class UserController extends Controller
     public function getDashboard()
     {
       return view('user.dashboard');
+    }
+
+    public function getInvoicePdf($id)
+    {
+      $invoice = Invoice::findOrFail($id);
+
+      $renderedInvoice = view('layouts.invoice_template')
+        ->with('invoice', $invoice)
+        ->render();
+
+      $pdf = PDF::loadHtml($renderedInvoice);
+      $pdf->setPaper('a4', 'landscape');
+      return $pdf->stream();
     }
 }
