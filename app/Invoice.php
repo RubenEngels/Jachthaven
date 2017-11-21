@@ -34,7 +34,7 @@ class Invoice extends Model
       foreach($this->attributes()->get() as $line) {
         $subtotal += $line->quantity * $line->price;
       }
-      return $subtotal * .21 + $subtotal;
+      return round($subtotal * .21 + $subtotal, 2);
     }
 
     public function isCredited()
