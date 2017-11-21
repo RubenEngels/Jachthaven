@@ -3,6 +3,7 @@
 /public/storage
 /public/uploads/avatars
 /public/uploads/documents/
+/public/invoices/
 !/public/uploads/avatars/default_user_icon.png
 /storage/*.key
 /vendor

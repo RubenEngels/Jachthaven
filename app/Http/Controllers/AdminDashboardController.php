@@ -12,7 +12,9 @@ use App\Invoice;
 use App\InvoiceAttributes;
 use App\User;
 use App\CreditedInvoices;
+use App\Mail\SendInvoice;
 use Auth;
+use PDF;
 
 class AdminDashboardController extends Controller
 {
@@ -180,6 +182,20 @@ class AdminDashboardController extends Controller
         'quantity' => $line['quantity'],
       ]);
     }
+
+    $invoice = Invoice::findOrFail($id);
+
+    $renderedInvoice = view('layouts.invoice_template')
+      ->with('invoice', $invoice)
+      ->render();
+
+    $pdf = PDF::loadHtml($renderedInvoice);
+    $pdf->setPaper('a4', 'landscape');
+
+    $pdf->save(public_path() . '/invoices/' . str_slug($invoice->name) . '-' . $invoice->id .'.pdf');
+
+    \Mail::to($invoice->user->email)->send(new SendInvoice(public_path() . '/invoices/' . str_slug($invoice->name) . '-' . $invoice->id .'.pdf', $invoice->user_id, $invoice->id));
+
     return redirect()
       ->back()
       ->with('status', 'De factuur is succesvol aangemaakt!');
