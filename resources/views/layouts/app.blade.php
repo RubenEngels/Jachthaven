@@ -73,7 +73,7 @@
 
             @foreach($active as $notification)
               {{-- {{ dd($notification)}} --}}
-              <p><b>Melding:</b> {{ $notification->message }} </p>
+              <p><b>Melding:</b> {!! $notification->message !!} </p>
               <hr>
             @endforeach
 
