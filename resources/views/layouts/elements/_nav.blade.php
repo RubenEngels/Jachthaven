@@ -40,9 +40,8 @@
                 <li><a href="{{ route('login') }}">Log in <i class="fa fa-sign-in" aria-hidden="true"></i> </a></li>
               @else
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" style="position:relative;padding-left:50px;">
-                        <img src="/uploads/avatars/{{ Auth::user()->image }}" alt="user" width="32px" height="32px" style="border-radius:50%;position:absolute;top:10px;left:10px;">
-                        {{ Auth::user()->name }} <span class="caret"></span>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                      {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu">

@@ -175,12 +175,14 @@ class AdminDashboardController extends Controller
     ]);
 
     foreach ($final as $line) {
-      InvoiceAttributes::create([
-        'invoice_id' => $id,
-        'name' => $line['name'],
-        'price' => $line['price'],
-        'quantity' => $line['quantity'],
-      ]);
+      if ($line['name'] != '') {
+        InvoiceAttributes::create([
+          'invoice_id' => $id,
+          'name' => $line['name'],
+          'price' => $line['price'],
+          'quantity' => $line['quantity'],
+        ]);
+      }
     }
 
     $invoice = Invoice::findOrFail($id);

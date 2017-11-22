@@ -6,7 +6,7 @@
     <div class="panel-body">
       @foreach($users as $user)
         <div class="dropdown" style="margin-top:3px;">
-          <img src="/uploads/avatars/{{ $user->image }}" alt="user" width="32px" height="32px">
+          {{-- <img src="/uploads/avatars/{{ $user->image }}" alt="user" width="32px" height="32px"> --}}
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" style="font-size:17px;">
               {{ $user->name }}
               <span class="caret"></span>
@@ -95,8 +95,9 @@
             </select>
             <br>
             <label class="form-label">Te betalen voor</label>
-            <input type="date" name="dueDate" class="form-control">
+            <input type="date" name="dueDate" class="form-control datepicker" value="{{ \Carbon\Carbon::now()->addWeeks(2)->format('Y-m-d') }}">
             <br>
+            <label class="form-label">Selecteer producten om toe te voegen</label>
             <div class="item-add-wrapper">
               <div class="row">
                 <div class="col-md-5">
@@ -131,6 +132,9 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+
+    $('.datepicker').datepicker();
+
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".item-add-wrapper"); //Fields wrapper
     var add_button      = $(".add-item"); //Add button ID

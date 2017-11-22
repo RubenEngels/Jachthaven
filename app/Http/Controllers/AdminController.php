@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Settings;
 use App\Events;
 use App\Documents;
+use App\InvoiceProducts;
 
 class AdminController extends Controller
 {
     public function getSettings()
     {
+      $settings = Settings::first();
+      $invoice_products = InvoiceProducts::paginate(5);
+
       return view('admin.settings')
-        ->with('settings', Settings::first());
+        ->with('settings', $settings)
+        ->with('invoice_products', $invoice_products);
     }
 
     public function postSettings(Request $request)
@@ -147,5 +152,44 @@ class AdminController extends Controller
       $document = Documents::findOrFail($id);
 
       return response()->download(public_path($document->link));
+    }
+
+    public function postChangeDefaultInvoiceProduct($id, Request $request)
+    {
+      $product = InvoiceProducts::findOrFail($id);
+
+      $product->name = $request->name;
+      $product->quantity = $request->quantity;
+      $product->price = $request->price;
+
+      $product->save();
+
+      return redirect()
+        ->back()
+        ->with('status', 'Het product is succesvol gewijzigd!');
+    }
+
+    public function postNewInvoiceProduct(Request $request)
+    {
+      InvoiceProducts::create([
+        'name' => $request->name,
+        'quantity' => $request->quantity,
+        'price' => $request->price,
+      ]);
+
+      return redirect()
+        ->back()
+        ->with('status', 'Het product is succesvol aangemaakt!');
+    }
+
+    public function getDeleteDefaultInvoiceProduct($id)
+    {
+      $product = InvoiceProducts::findOrFail($id);
+
+      $product->delete();
+
+      return redirect()
+        ->back()
+        ->with('status', 'Het product is succesvol verwijderd!');
     }
 }
