@@ -32,7 +32,3 @@ Route::get('/documents/download/{id}', 'GuestController@getDownloadDocuments');
 // require specific routes Here
 require __DIR__ . '/Admin/AdminRoutes.php';
 require __DIR__ . '/User/UserRoutes.php';
-
-Route::get('/test', function () {
-  dd(Auth::user()->invoice->first()->isCredited());
-});

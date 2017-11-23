@@ -14,6 +14,7 @@ use App\User;
 use App\CreditedInvoices;
 use App\Mail\SendInvoice;
 use App\InvoiceProducts;
+use App\ExportInvoices;
 use Auth;
 use PDF;
 
@@ -215,5 +216,10 @@ class AdminDashboardController extends Controller
       'quantity' => $product->quantity,
       'price' => $product->price,
     ];
+  }
+
+  public function exportInvoices()
+  {
+    return ExportInvoices::excel();
   }
 }

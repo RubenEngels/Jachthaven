@@ -1,7 +1,7 @@
 <div class="col-md-6">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4>Facturen &nbsp;<a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newInvoice">Maak een nieuwe factuur</a> </h4>
+      <h4>Facturen &nbsp;<a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newInvoice">Maak een nieuwe factuur</a> <a href="/admin/dashboard/invoice/export" class="btn btn-default btn-sm">Exporteer overzicht</a> </h4>
     </div>
     <div class="panel-body">
       @foreach($users as $user)
@@ -104,7 +104,7 @@
               @endforeach
             </select>
             <div class="item-add-wrapper">
-            
+
               <br>
             </div>
             <div class="row">
