@@ -9,7 +9,7 @@
             Facturen
           </div>
           <div class="panel-body">
-            @if(empty(Auth::user()->invoice))
+            @if(!empty(Auth::user()->invoice))
               <table class="table table-striped">
                 <tr>
                   <th>Id</th>
@@ -19,7 +19,7 @@
                   <th>Acties</th>
                 </tr>
                 @php $i = 1; @endphp
-                @foreach (Auth::user()->invoice as $invoice)
+                @foreach (Auth::user()->invoice->sortByDesc('id') as $invoice)
                   <tr>
                     <td>#{{ $i }}</td>
                     <td>{{ $invoice->name }}</td>

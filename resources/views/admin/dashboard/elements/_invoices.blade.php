@@ -98,21 +98,14 @@
             <input type="date" name="dueDate" class="form-control datepicker" value="{{ \Carbon\Carbon::now()->addWeeks(2)->format('Y-m-d') }}">
             <br>
             <label class="form-label">Selecteer producten om toe te voegen</label>
+            <select class="form-control" id="picker" name="items[]" multiple>
+              @foreach ($defaultInvoiceItems as $product)
+                <option id="option_{{ $loop->index }}" value="{{ $product->id }}">{{ $product->name }}, € {{ $product->price}}</option>
+              @endforeach
+            </select>
             <div class="item-add-wrapper">
-              <div class="row">
-                <div class="col-md-5">
-                  <label class="form-label">Naam</label>
-                  <input type="text" class="form-control" name="item_name[]" class="form-control" required>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">Prijs €</label>
-                  <input type="number" class="form-control" name="item_price[]" class="from-control" step="0.01" min="0" required>
-                </div>
-                <div class="col-md-3">
-                  <label class="form-label">Aantal</label>
-                  <input type="number" name="item_quantity[]" class="form-control" min="1" required>
-                </div>
-              </div>
+            
+              <br>
             </div>
             <div class="row">
               <div class="col-md-12">
@@ -132,14 +125,38 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-
-    $('.datepicker').datepicker();
-
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".item-add-wrapper"); //Fields wrapper
     var add_button      = $(".add-item"); //Add button ID
-
     var x = 1; //initlal text box count
+
+    @foreach($defaultInvoiceItems as $product)
+      $('#option_{{ $loop->index }}').click(function () {
+        if (this.value != '') {
+
+          if(x < max_fields){ //max input box allowed
+              x++; //text box increment
+              $(wrapper).append('<div class="row"><div class="col-md-5"><label class="form-label">Naam</label><input id="line_name_{{ $loop->index }}" type="text" class="form-control" name="item_name[]"class="form-control"></div><div class="col-md-4"><label class="form-label">Prijs €</label><input id="line_price_{{ $loop->index }}" type="number" step="0.01" min="0" class="form-control" name="item_price[]"class="from-control"></div><div class="col-md-3"><label class="form-label">Aantal</label><input id="line_quantity_{{ $loop->index }}" type="number" name="item_quantity[]"class="form-control" min="1"></div></div><br>'); //add input box
+          }
+
+          $.ajax({
+            method: "POST",
+            url: "/admin/dashboard/invoice/new/get/",
+            data: {
+              "_token": '{{ csrf_token() }}',
+              "id": this.value
+            }
+          })
+          .done(function( data ) {
+            console.log(data.name);
+            $('#line_name_{{ $loop->index}}').val(data.name);
+            $('#line_quantity_{{ $loop->index }}').val(data.quantity);
+            $('#line_price_{{ $loop->index }}').val(data.price);
+          });
+        }
+      });
+    @endforeach
+
     $(add_button).click(function(e){ //on add input button click
         e.preventDefault();
         if(x < max_fields){ //max input box allowed

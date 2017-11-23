@@ -13,6 +13,7 @@ use App\InvoiceAttributes;
 use App\User;
 use App\CreditedInvoices;
 use App\Mail\SendInvoice;
+use App\InvoiceProducts;
 use Auth;
 use PDF;
 
@@ -24,12 +25,14 @@ class AdminDashboardController extends Controller
     $mailing_list = MailingList::paginate(5, ['*'], 'mailing');
     $newsletters = Newsletters::paginate(5, ['*'], 'newsletter');
     $users = User::paginate(5, ['*'], 'users');
+    $defaultInvoiceItems = InvoiceProducts::all();
 
     return view('admin.dashboard.index')
     ->with('active', $active)
     ->with('mailing_list', $mailing_list)
     ->with('newsletters', $newsletters)
-    ->with('users', $users);
+    ->with('users', $users)
+    ->with('defaultInvoiceItems', $defaultInvoiceItems);
   }
 
   public function postNotifications(Request $request)
@@ -201,5 +204,16 @@ class AdminDashboardController extends Controller
     return redirect()
       ->back()
       ->with('status', 'De factuur is succesvol aangemaakt!');
+  }
+
+  public function postGetDefaultInvoiceProduct(Request $request)
+  {
+    $product = InvoiceProducts::findOrFail($request->id);
+
+    return [
+      'name' => $product->name,
+      'quantity' => $product->quantity,
+      'price' => $product->price,
+    ];
   }
 }

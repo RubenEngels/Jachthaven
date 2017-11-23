@@ -33,4 +33,6 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::post('/invoice/product/change/{id}', 'AdminController@postChangeDefaultInvoiceProduct');
   Route::post('/settings/invoice/products/new', 'AdminController@postNewInvoiceProduct');
   Route::get('/invoice/product/delete/{id}', 'AdminController@getDeleteDefaultInvoiceProduct');
+
+  Route::post('dashboard/invoice/new/get', 'AdminDashboardController@postGetDefaultInvoiceProduct');
 });
