@@ -8,6 +8,7 @@
     </div>
     <div class="row">
       @include('admin.dashboard.elements._invoices')
+      @include('admin.dashboard.elements._crane_overview')
     </div>
 </div>
 @foreach($newsletters as $newsletter)

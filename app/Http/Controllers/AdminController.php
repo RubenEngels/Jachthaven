@@ -36,6 +36,7 @@ class AdminController extends Controller
       $settings->inschrijf_geld = (isset($request->inschrijf_geld)) ? $request->inschrijf_geld : $settings->inschrijf_geld;
       $settings->lidmaatschap_prijs = (isset($request->lidmaatschap_prijs)) ? $request->lidmaatschap_prijs : $settings->lidmaatschap_prijs;
       $settings->kraan_tijd_vereist = (isset($request->kraan_tijd_vereist)) ? $request->kraan_tijd_vereist : $settings->kraan_tijd_vereist;
+      $settings->crane_start_time = (isset($request->crane_start_time)) ? $request->crane_start_time : $settings->crane_start_time;
 
       $settings->save();
 

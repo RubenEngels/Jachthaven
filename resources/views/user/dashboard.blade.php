@@ -39,5 +39,32 @@
         </div>
       </div>
     </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Plan een kraan reservering</h4>
+        </div>
+        <div class="panel-body">
+          <form class="form" action="/user/dashboard/reservation/new" method="post">
+            <label class="form-label"></label>
+            <input type="text" name="" value="">
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 @endsection
+
+
+{{-- <select class="form-control" name="date">
+  @for ($i=1; $i <= 16; $i++)
+    @foreach ($crane_reservations as $reservation)
+      @if (\Carbon\Carbon::parse($reservation->time)->format('H:i') == $current_time->format('H:i'))
+        <option disabled>Al Bezet</option>
+      @else
+        <option>{{ $current_time->format('H:i') }}</option>
+      @endif
+      @php $start_date = $start_date->addMinutes(30) @endphp
+    @endforeach
+  @endfor
+</select> --}}

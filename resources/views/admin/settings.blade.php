@@ -36,6 +36,9 @@
                     <label class="form-label">Vereiste tijd voor kraan reserveringen</label>
                     <input type="text" name="kraan_tijd_vereist" class="form-control" value="{!! $settings->kraan_tijd_vereist !!}">
                     <br>
+                    <label class="form-label">Kraan reservering start tijd</label>
+                    <input type="text" name="crane_start_time" class="form-control" value="{!! $settings->crane_start_time !!}">
+                    <br>
                     <input type="submit" class="btn btn-primary btn-lg" value="Sla op!">
                   </div>
                   <div class="col-md-6">
