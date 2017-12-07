@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
             Facturen
           </div>
           <div class="panel-body">
@@ -26,7 +26,7 @@
                     <td>{{ $invoice->sendDate->format('d/m/Y') }}</td>
                     <td>{{ $invoice->dueDate->format('d/m/Y') }}</td>
                     <td>
-                      <a class="btn btn-primary" href="/user/invoice/pdf/{{ $invoice->id }}">Bekijk de factuur</a>
+                      <a class="btn btn-primary" style="background-color:#163f92;" href="/user/invoice/pdf/{{ $invoice->id }}">Bekijk de factuur</a>
                     </td>
                   </tr>
                   @php $i++; @endphp
@@ -41,13 +41,19 @@
     </div>
     <div class="col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
           <h4>Plan een kraan reservering</h4>
         </div>
         <div class="panel-body">
           <form class="form" action="/user/dashboard/reservation/new" method="post">
-            <label class="form-label"></label>
-            <input type="text" name="" value="">
+            <label class="form-label">Datum</label>
+            <input type="date" name="date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="form-control">
+            <br>
+            <label class="form-label">Type</label>
+            <select class="form-control" name="type">
+              <option value="in-water">In het water tillen</option>
+              <option value="out-water">Uit het water tillen</option>
+            </select>
           </form>
         </div>
       </div>

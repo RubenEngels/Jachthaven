@@ -56,7 +56,7 @@ class ExportInvoices
           $invoice->name,
           User::find($invoice->user_id)->name,
           $invoice->dueDate->format('d/m/Y'),
-          (isset($invoice->payed_at)) ? $invoice->payed_at : 'nog niet betaald',
+          (isset($invoice->payed_at)) ? $invoice->payed_at->format('d/m/Y') : 'nog niet betaald',
           '€ ' . $invoice->getSubTotal(),
           '€ ' . $invoice->getBtw(),
           '€ ' . $invoice->getTotal(),

@@ -18,7 +18,7 @@
                   <br>
                   <b>Gepubliceerd op:</b> <i>{{ $document->created_at->format('d/m/Y H:i') }}</i>
                   <br>
-                  <a href="/documents/download/{{ $document->id }}" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;">Download bestand</a>
+                  <a href="/documents/download/{{ $document->id }}" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px; background-color:rgba(22, 63, 146, 1)">Download bestand</a>
                 </p>
               </div>
             </div>

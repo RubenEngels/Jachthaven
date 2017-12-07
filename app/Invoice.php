@@ -11,7 +11,7 @@ class Invoice extends Model
 
     protected $fillable = ['user_id', 'name', 'sendDate', 'dueDate'];
 
-    protected $dates = ['dueDate', 'sendDate', 'deleted_at'];
+    protected $dates = ['dueDate', 'sendDate', 'deleted_at', 'payed_at'];
 
     public function attributes()
     {

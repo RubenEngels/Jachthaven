@@ -231,4 +231,17 @@ class AdminDashboardController extends Controller
   {
     return ExportInvoices::excel();
   }
+
+  public function getSetAsPayed($id)
+  {
+    $invoice = Invoice::find($id);
+
+    $invoice->payed_at = \Carbon\Carbon::now();
+
+    $invoice->save();
+
+    return redirect()
+      ->back()
+      ->with('status', 'De factuur is succesvol op betaald gezet!');
+  }
 }

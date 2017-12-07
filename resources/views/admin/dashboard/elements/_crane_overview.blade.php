@@ -1,6 +1,6 @@
 <div class="col-md-6">
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
       <h4>Kraan Overzicht</h4>
     </div>
     <div class="panel-body">

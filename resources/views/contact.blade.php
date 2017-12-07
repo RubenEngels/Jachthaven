@@ -37,7 +37,7 @@
           <textarea name="message" rows="8" cols="80" class="form-control" placeholder="Beste Jachthaven..." required></textarea>
           <br>
           <p>* Deze velden zijn verplicht.</p>
-          <button type="submit" class="btn btn-lg btn-primary">Verstuur!</button>
+          <button type="submit" class="btn btn-lg btn-primary" style="background-color:rgba(22, 63, 146, 1);">Verstuur!</button>
         </form>
       </div>
       <div class="col-md-1"></div>

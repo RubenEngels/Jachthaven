@@ -51,11 +51,11 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">
                                     Log in
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a class="btn btn-link" href="{{ route('password.request') }}" class="color:rgba(22, 63, 146, 1);">
                                     Wachtwoord vergeten?
                                 </a>
                             </div>

@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
             <h4><i>Geplande Evenementen</i></h4>
           </div>
           <div class="panel-body">
@@ -22,7 +22,7 @@
                     </p>
                   </div>
                   <div class="col-md-2">
-                    <button href="#" data-toggle="modal" data-target="#{{ str_slug($event->name) }}" class="btn btn-default">Wijzig</button>
+                    <button href="#" data-toggle="modal" data-target="#{{ str_slug($event->name) }}" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Wijzig</button>
                   </div>
                 </div>
 
@@ -60,7 +60,7 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
                           <a href="/admin/events/delete/{{ $event->id }}" class="btn btn-danger">Verwijderen</a>
-                          <button type="submit" class="btn btn-primary">Opslaan</button>
+                          <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Opslaan</button>
                         </div>
                       </form>
                     </div>
@@ -76,7 +76,7 @@
       </div>
       <div class="col-md-6">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
             <h4><i>Maak een nieuw evenement</i></h4>
           </div>
           <div class="panel-body">
@@ -97,7 +97,7 @@
               <label class="form-label">Tot</label>
               <input type="text" name="till" class="form-control" required>
               <br>
-              <button type="submit" class="btn btn-primary">Sla op!</button>
+              <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Sla op!</button>
             </form>
           </div>
         </div>
