@@ -1,7 +1,7 @@
 <div class="col-md-6">
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4>Facturen &nbsp;<a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newInvoice">Maak een nieuwe factuur</a> </h4>
+    <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
+      <h4>Facturen &nbsp;<a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newInvoice" style="background-color:#163f92;">Maak een nieuwe factuur</a> <a href="/admin/dashboard/invoice/export" class="btn btn-default btn-sm">Exporteer overzicht</a> </h4>
     </div>
     <div class="panel-body">
       @foreach($users as $user)
@@ -52,8 +52,13 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
                 <a href="/admin/invoice/delete/{{ $invoice->id}}" class="btn btn-danger">Verwijder</a>
-                <button type="submit" class="btn btn-primary">Krediteer</button>
+                <button type="submit" class="btn btn-primary" style="background-color:#163f92;">Krediteer</button>
                 <a href="/user/invoice/pdf/{{ $invoice->id }}" class="btn btn-default">Bekijk</a>
+                @if($invoice->payed_at == null)
+                  <a href="/admin/invoice/setAsPayed/{{ $invoice->id }}" class="btn btn-primary" style="background-color:#163f92;">Zet op betaald</a>
+                @else
+                  <button disabled type="button" class="btn btn-primary" style="background-color:#163f92;">Deze factuur is reeds betaald</button>
+                @endif
               </div>
             </form>
           @else
@@ -104,19 +109,19 @@
               @endforeach
             </select>
             <div class="item-add-wrapper">
-            
+
               <br>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <br>
-                <a href="#" class="btn btn-primary add-item">Voeg velden toe</a>
+                <a href="#" class="btn btn-primary add-item" style="background-color:#163f92;">Voeg velden toe</a>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-            <button type="submit" class="btn btn-primary">Sla op</button>
+            <button type="submit" class="btn btn-primary" style="background-color:#163f92;">Sla op</button>
           </div>
         </form>
     </div>

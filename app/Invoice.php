@@ -11,7 +11,7 @@ class Invoice extends Model
 
     protected $fillable = ['user_id', 'name', 'sendDate', 'dueDate'];
 
-    protected $dates = ['dueDate', 'sendDate', 'deleted_at'];
+    protected $dates = ['dueDate', 'sendDate', 'deleted_at', 'payed_at'];
 
     public function attributes()
     {
@@ -30,11 +30,21 @@ class Invoice extends Model
 
     public function getTotal()
     {
+      return round($this->getSubTotal() + $this->getBtw(), 2);
+    }
+
+    public function getSubTotal()
+    {
       $subtotal = 0;
-      foreach($this->attributes()->get() as $line) {
+      foreach ($this->attributes()->get() as $line) {
         $subtotal += $line->quantity * $line->price;
       }
-      return round($subtotal * .21 + $subtotal, 2);
+      return round($subtotal, 2);
+    }
+
+    public function getBtw()
+    {
+      return round($this->getSubTotal() / 100 * 21, 2);
     }
 
     public function isCredited()
@@ -43,5 +53,14 @@ class Invoice extends Model
         return true;
       }
       return false;
+    }
+
+    public static function totalOfAll()
+    {
+      $total = 0;
+      foreach (self::all() as $invoice) {
+        $total += $invoice->getTotal();
+      }
+      return $total;
     }
 }

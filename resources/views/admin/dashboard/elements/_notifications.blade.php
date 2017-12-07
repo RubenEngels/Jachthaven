@@ -1,7 +1,7 @@
 <div class="col-md-3">
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><i>Meldingen</i>&nbsp; <a href="#" data-toggle="modal" data-target="#newNotification"><i class="fa fa-plus fs-4x" aria-hidden="true"></i></a></h4>
+    <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
+      <h4><i>Meldingen</i>&nbsp; <a href="#" data-toggle="modal" data-target="#newNotification"><i style="color:#163f92;" class="fa fa-plus fs-4x" aria-hidden="true"></i></a></h4>
       <!-- Modal -->
       <div class="modal fade" id="newNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -20,7 +20,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-                <button type="submit" class="btn btn-primary">Opslaan</button>
+                <button type="submit" class="btn btn-primary" style="background-color:#163f92;">Opslaan</button>
               </div>
             </form>
           </div>
@@ -34,7 +34,7 @@
           <p>
             <b>Bericht: </b><br>{{ $notification->message }}
             <br>
-            <button href="#" data-toggle="modal" data-target="#{{ str_slug($notification->id) }}" style="margin-top:10px;" class="btn btn-primary">Wijzig</button>
+            <button href="#" data-toggle="modal" data-target="#{{ str_slug($notification->id) }}" style="margin-top:10px;background-color:#163f92;" class="btn btn-primary">Wijzig</button>
           </p>
 
           <!-- Modal -->
@@ -57,7 +57,7 @@
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
                     <a href="/admin/notifications/delete/{{ $notification->id }}" class="btn btn-danger">Verwijderen</a>
-                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#163f92;">Opslaan</button>
                   </div>
                 </form>
               </div>

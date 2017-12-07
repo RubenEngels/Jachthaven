@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use App\Invoice;
+use App\CraneReservation;
+use App\Settings;
+use Carbon\Carbon;
 use Auth;
 use PDF;
 
@@ -52,9 +55,14 @@ class UserController extends Controller
 
     public function getDashboard()
     {
+      $crane_reservations = CraneReservation::all();
+      $start_date = (new Carbon(date('Y-m-d') . Settings::first()->crane_start_time));
+      $current_time = $start_date->addMinutes(30);
 
-
-      return view('user.dashboard');
+      return view('user.dashboard')
+      ->with('crane_reservations', $crane_reservations)
+      ->with('start_date', $start_date)
+      ->with('current_time', $start_date);
     }
 
     public function getInvoicePdf($id)

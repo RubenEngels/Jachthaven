@@ -36,7 +36,10 @@
                     <label class="form-label">Vereiste tijd voor kraan reserveringen</label>
                     <input type="text" name="kraan_tijd_vereist" class="form-control" value="{!! $settings->kraan_tijd_vereist !!}">
                     <br>
-                    <input type="submit" class="btn btn-primary btn-lg" value="Sla op!">
+                    <label class="form-label">Kraan reservering start tijd</label>
+                    <input type="text" name="crane_start_time" class="form-control" value="{!! $settings->crane_start_time !!}">
+                    <br>
+                    <input type="submit" class="btn btn-primary btn-lg" style="background-color:rgba(22, 63, 146, 1);" value="Sla op!">
                   </div>
                   <div class="col-md-6">
                     <img src="/img/settings_icon.png" alt="settings half wheel" style="opacity:.1">
@@ -69,7 +72,7 @@
                           <td>{{ $product->name }}</td>
                           <td>{{ $product->quantity }}</td>
                           <td>€ {{ $product->price }}</td>
-                          <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#product_{{ $product->id }}">Wijzig</a></td>
+                          <td><a href="#" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);" data-toggle="modal" data-target="#product_{{ $product->id }}">Wijzig</a></td>
                         </tr>
                       @endforeach
                     </table>
@@ -92,7 +95,7 @@
                     <label class="form-label">Prijs</label>
                     <input type="number" step="0.01" name="price" class="form-control">
                     <br>
-                    <button type="submit" class="btn btn-primary">Sla op</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Sla op</button>
                   </form>
                 </div>
               </div>
@@ -128,7 +131,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
             <a href="/admin/invoice/product/delete/{{ $product->id }}" class="btn btn-danger">Verwijderen</a>
-            <button type="submit" class="btn btn-primary">Opslaan</button>
+            <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Opslaan</button>
           </div>
         </form>
       </div>

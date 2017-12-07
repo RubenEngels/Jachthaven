@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
             <h4><i>Gedeelde Documenten</i> </h4>
           </div>
           <div class="panel-body">
@@ -22,7 +22,7 @@
                       <br>
                       <b>Gepubliceerd op:</b> <i>{{ $document->created_at->format('d/m/Y H:i') }}</i>
                       <br>
-                      <a href="#"  data-toggle="modal" data-target="#{{ $document->id }}" class="btn btn-sm btn-primary">Wijzig</a>
+                      <a href="#"  data-toggle="modal" data-target="#{{ $document->id }}" class="btn btn-sm btn-primary" style="background-color:rgba(22, 63, 146, 1);">Wijzig</a>
                       <a href="/admin/documents/download/{{ $document->id }}" class="btn btn-sm btn-default">Download</a>
                     </p>
                   </div>
@@ -57,7 +57,7 @@
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
                           <a href="/admin/documents/delete/{{ $document->id}}" class="btn btn-danger">Verwijderen!</a>
-                          <button type="submit" class="btn btn-primary">Sla op!</button>
+                          <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Sla op!</button>
                         </div>
                       </form>
                     </div>
@@ -73,7 +73,7 @@
       </div>
       <div class="col-md-6">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
             <h4><i>Deel een nieuw document</i> </h4>
           </div>
           <div class="panel-body">
@@ -88,7 +88,7 @@
                 <option value="false">Alleen voor leden beschikbaar</option>
               </select>
               <br>
-              <button type="submit" class="btn btn-primary">Opslaan!</button>
+              <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Opslaan!</button>
             </form>
           </div>
         </div>

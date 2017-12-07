@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top" style="background-color:rgba(214, 214, 214,0.7)">
+<nav class="navbar navbar-default navbar-static-top" style="background-color:#163f92;">
     <div class="container">
         <div class="navbar-header">
 
@@ -10,14 +10,14 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/" style="color:white;">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" style="color:white;">
                 &nbsp;
                 @include('layouts.elements._public_pages')
             </ul>
@@ -31,16 +31,16 @@
 
               @guest
               @else
-                  <li><a href="#" data-toggle="modal" data-target="#inboxModal">Inbox <i class="fa fa-inbox" aria-hidden="true"></i> </a> </li>
+                  <li><a style="color:white;" href="#" data-toggle="modal" data-target="#inboxModal">Inbox <i class="fa fa-inbox" aria-hidden="true"></i> </a> </li>
               @endguest
 
 
                 <!-- Authentication Links -->
               @guest
-                <li><a href="{{ route('login') }}">Log in <i class="fa fa-sign-in" aria-hidden="true"></i> </a></li>
+                <li><a style="color:white;" href="{{ route('login') }}">Log in <i class="fa fa-sign-in" aria-hidden="true"></i> </a></li>
               @else
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                    <a style="color:white;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                       {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
 

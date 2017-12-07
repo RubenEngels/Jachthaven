@@ -44,7 +44,7 @@
                 <input type="text" name="tel" class="form-control" value="{{ $user->tel }}">
                 <br>
 
-                <button type="submit" class="btn btn-lg btn-primary">Sla op!</button>
+                <button type="submit" class="btn btn-lg btn-primary" style="background-color:rgba(22, 63, 146, 1);">Sla op!</button>
               </form>
             </div>
             <div class="col-md-6">
