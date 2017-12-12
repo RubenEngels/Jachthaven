@@ -10,5 +10,6 @@
         <li><a href="/admin/settings">Instellingen <i class="fa fa-cog" style="padding-left:26px;" aria-hidden="true"></i> </a></li>
         <li><a href="/admin/events">Agenda <i class="fa fa-calendar" style="padding-left:50px;" aria-hidden="true"></i> </a></li>
         <li><a href="/admin/documents">Documenten <i class="fa fa-file" style="padding-left:18px;" aria-hidden="true"></i> </a> </li>
+        <li><a href="/admin/create/boat">Boten<i class="fa fa-ship" style="padding-left:65px;" aria-hidden="true"></i> </a> </li>
     </ul>
 </li>
