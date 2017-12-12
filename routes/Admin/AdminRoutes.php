@@ -37,4 +37,7 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::get('/invoice/product/delete/{id}', 'AdminController@getDeleteDefaultInvoiceProduct');
 
   Route::post('dashboard/invoice/new/get', 'AdminDashboardController@postGetDefaultInvoiceProduct');
+
+  Route::get('/boat/create', 'AdminController@getCreateBoat');
+  Route::post('/boat/create', 'AdminController@postCreateBoat');
 });

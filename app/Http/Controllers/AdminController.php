@@ -9,6 +9,7 @@ use App\Settings;
 use App\Events;
 use App\Documents;
 use App\InvoiceProducts;
+use App\Boats;
 
 class AdminController extends Controller
 {
@@ -192,5 +193,18 @@ class AdminController extends Controller
       return redirect()
         ->back()
         ->with('status', 'Het product is succesvol verwijderd!');
+    }
+
+    public function getCreateBoat()
+    {
+      $boats = Boats::all();
+
+      return view('admin.boat')
+        ->with('boats', $boats);
+    }
+
+    public function postCreateBoat(Request $request)
+    {
+      dd($request->except('_token'));
     }
 }
