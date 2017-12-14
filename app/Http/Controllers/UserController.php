@@ -19,22 +19,6 @@ class UserController extends Controller
         ->with('user', Auth::user());
     }
 
-    public function postPhoto(Request $request)
-    {
-      // TODO: update using intervention
-      request()->validate([
-        'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-      ]);
-
-      $imageName = time().'.'.request()->photo->getClientOriginalExtension();
-      request()->photo->move(public_path('uploads/avatars'), $imageName);
-
-      Auth::user()->image = strtolower($imageName);
-      Auth::user()->save();
-
-      return redirect()->back()->with('status', 'Uw wijzigingen zijn sucessvol opgeslagen!');
-    }
-
     public function postProfile(Request $request)
     {
       $user = Auth::user();
