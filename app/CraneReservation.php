@@ -12,4 +12,9 @@ class CraneReservation extends Model
     {
       return $this->belongsTo('App\User');
     }
+
+    public function boat()
+    {
+      return $this->belongsTo('App\Boats');
+    }
 }

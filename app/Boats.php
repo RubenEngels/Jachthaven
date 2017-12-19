@@ -26,4 +26,9 @@ class Boats extends Model
     {
       return $this->belongsTo('App\User');
     }
+
+    public function Reservations()
+    {
+      return $this->hasMany('App\CraneReservation', 'boat_id');
+    }
 }

@@ -30,9 +30,8 @@ class AdminDashboardController extends Controller
     $newsletters = Newsletters::paginate(5, ['*'], 'newsletter');
     $users = User::paginate(5, ['*'], 'users');
     $defaultInvoiceItems = InvoiceProducts::all();
-    $crane_reservations = CraneReservation::all();
-    $start_date = (new Carbon(date('Y-m-d') . Settings::first()->crane_start_time));
-    $current_time = $start_date->addMinutes(30);
+    $crane_reservations = CraneReservation::where('date', Carbon::now()->format('y-m-d'))->get();
+
 
     return view('admin.dashboard.index')
     ->with('active', $active)
@@ -40,9 +39,7 @@ class AdminDashboardController extends Controller
     ->with('newsletters', $newsletters)
     ->with('users', $users)
     ->with('defaultInvoiceItems', $defaultInvoiceItems)
-    ->with('crane_reservations', $crane_reservations)
-    ->with('start_date', $start_date)
-    ->with('current_time', $current_time);
+    ->with('crane_reservations', $crane_reservations);
   }
 
   public function postNotifications(Request $request)
