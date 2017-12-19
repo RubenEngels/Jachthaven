@@ -197,7 +197,7 @@ class AdminController extends Controller
 
     public function getCreateBoat()
     {
-      $boats = Boats::all();
+      $boats = Boats::paginate(10);
 
       return view('admin.boat')
         ->with('boats', $boats);
@@ -205,6 +205,45 @@ class AdminController extends Controller
 
     public function postCreateBoat(Request $request)
     {
-      dd($request->except('_token'));
+      Boats::create([
+        'name' => $request->name,
+        'user_id' => $request->owner,
+        'brand' => $request->brand,
+        'type' => $request->type,
+        'color' => $request->color,
+        "length" => $request->length,
+        "width" => $request->width,
+        "depth" => $request->depth,
+        "heigth" => $request->heigth,
+        "boatType" => $request->boatType,
+      ]);
+
+      return redirect()->back()->with('status', 'De boot is succesvol toegevoegd');
+    }
+
+    public function postEditBoat($id, Request $request)
+    {
+      $boat = Boats::find($id);
+
+      $boat->name = $request->name;
+      $boat->brand = $request->brand;
+      $boat->type = $request->type;
+      $boat->color = $request->color;
+      $boat->length = $request->length;
+      $boat->width = $request->width;
+      $boat->depth = $request->depth;
+      $boat->heigth = $request->heigth;
+      $boat->boatType = $request->boatType;
+
+      $boat->save();
+
+      return redirect()->back()->with('status', 'De boot is succesvol aangepast');
+    }
+
+    public function getDeleteBoat($id)
+    {
+      Boats::destroy($id);
+
+      return redirect()->back()->with('status', 'De boot is succesvol verwijderd');
     }
 }

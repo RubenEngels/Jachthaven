@@ -40,4 +40,6 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
 
   Route::get('/boat/create', 'AdminController@getCreateBoat');
   Route::post('/boat/create', 'AdminController@postCreateBoat');
+  Route::get('boat/delete/{id}', 'AdminController@getDeleteBoat');
+  Route::post('boat/edit/{id}', 'AdminController@postEditBoat');
 });
