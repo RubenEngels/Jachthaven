@@ -36,7 +36,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
             <a href="/admin/dashboard/newsletter/delete/{{ $newsletter->id }}" class="btn btn-danger">Verwijderen</a>
-            <button type="submit" class="btn btn-primary">Opslaan</button>
+            <button type="submit" class="btn btn-primary" style="background-color:#163f92">Opslaan</button>
           </div>
         </form>
       </div>
@@ -66,7 +66,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-          <button type="submit" class="btn btn-primary">Opslaan</button>
+          <button type="submit" class="btn btn-primary" style="background-color:#163f92">Opslaan</button>
         </div>
       </form>
     </div>
@@ -102,7 +102,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-          <button type="submit" class="btn btn-primary">Verstuur</button>
+          <button type="submit" class="btn btn-primary" style="background-color:#163f92">Verstuur</button>
         </div>
       </form>
     </div>

@@ -15,6 +15,7 @@ use App\CreditedInvoices;
 use App\Mail\SendInvoice;
 use App\InvoiceProducts;
 use App\ExportInvoices;
+use App\ExportCrane;
 use App\CraneReservation;
 use App\Settings;
 use Carbon\Carbon;
@@ -240,5 +241,10 @@ class AdminDashboardController extends Controller
     return redirect()
       ->back()
       ->with('status', 'De factuur is succesvol op betaald gezet!');
+  }
+
+  public function getExportCrane()
+  {
+    return ExportCrane::excel();
   }
 }
