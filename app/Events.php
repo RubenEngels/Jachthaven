@@ -12,6 +12,6 @@ class Events extends Model
 
   public function rsvp()
   {
-    return $this->hasMany('App\EventRsvp');
+    return $this->hasMany('App\EventRsvp', 'event_id');
   }
 }
