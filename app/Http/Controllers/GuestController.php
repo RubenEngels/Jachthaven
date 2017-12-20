@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\ContactForm;
 use App\MailingList;
 use App\Events;
+use App\EventRsvp;
 use App\Documents;
 use App\UserNotifications;
+
 
 class GuestController extends Controller
 {
@@ -80,5 +82,18 @@ class GuestController extends Controller
     $document = Documents::findOrFail($id);
 
     return response()->download(public_path($document->link));
+  }
+
+  public function postRsvp(Request $request)
+  {
+    EventRsvp::create([
+      'event_id' => $request->id,
+      'name' => $request->name,
+      'email' => $request->email,
+    ]);
+
+    return redirect()
+      ->back()
+      ->with('status', 'Uw bent succesvol ingeschreven voor het evenement!');
   }
 }
