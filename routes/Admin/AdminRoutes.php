@@ -44,4 +44,8 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::post('boat/edit/{id}', 'AdminController@postEditBoat');
 
   Route::get('/dashboard/export/crane', 'AdminDashboardController@getExportCrane');
+
+  Route::get('/users', 'AdminController@getUsers');
+  Route::post('/users', 'AdminController@postEditUsers');
+  Route::get('/users/delete/{id}', 'AdminController@getDeleteUser');
 });

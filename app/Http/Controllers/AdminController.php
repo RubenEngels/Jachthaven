@@ -10,6 +10,7 @@ use App\Events;
 use App\Documents;
 use App\InvoiceProducts;
 use App\Boats;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -245,5 +246,32 @@ class AdminController extends Controller
       Boats::destroy($id);
 
       return redirect()->back()->with('status', 'De boot is succesvol verwijderd');
+    }
+
+    public function getUsers()
+    {
+      $users = User::all();
+
+      return view('admin.users')
+        ->with('users', $users);
+    }
+
+    public function postEditUsers(Request $request)
+    {
+      $user = User::find($request->id);
+
+      $user->name = $request->name;
+      $user->email = $request->email;
+
+      $user->save();
+
+      return redirect()->back()->with('status', 'De gebruiker is succesvol aangepast');
+    }
+
+    public function getDeleteUser($id)
+    {
+      User::destroy($id);
+
+      return redirect()->back()->with('status', 'De gebruiker is succesvol verwijderd');
     }
 }
