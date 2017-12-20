@@ -58,6 +58,7 @@
                           <input type="text" name="till" class="form-control" value="{{ $event->till }}" required>
                         </div>
                         <div class="modal-footer">
+                          <p>Er zijn {{ $event->rsvp->count() }} inschrijving(en)!</p>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
                           <a href="/admin/events/delete/{{ $event->id }}" class="btn btn-danger">Verwijderen</a>
                           <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Opslaan</button>

@@ -27,7 +27,38 @@
             <p>
               <b>Van:</b> <i>{{ $event->from }}</i> uur - <b>Tot:</b> <i>{{ $event->till }}</i> uur
             </p>
+            <a href="#" class="btn btn-primary btn-sm" style="background-color:#163f92;" data-target="#{{ 'event_' . $event->id }}" data-toggle="modal">Ik kom!</a>
             <hr style="border:.5px solid gray">
+
+            <!-- Modal -->
+            <div class="modal fade" id="event_{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <form action="/event/rsvp" method="post">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="id" value="{{ $event->id }}">
+                    <div class="modal-header">
+                      <h5 class="modal-title"><b>Schrijf je in voor:</b> <i>{{ $event->name }}</i></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <label class="form-label">Naam</label>
+                      <input type="text" name="name" class="form-control">
+                      <br>
+                      <label class="form-label">E-Mail:</label>
+                      <input type="email" name="email" class="form-control">
+                      <br>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                      <button type="submit" class="btn btn-primary" style="background-color:#163f92">Schrijf je in</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           @endforeach
           {{ $events->links() }}
         @else

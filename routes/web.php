@@ -25,6 +25,7 @@ Route::get('/contact', 'GuestController@getContact');
 Route::post('/contact', 'GuestController@postContact');
 
 Route::get('/agenda', 'GuestController@getAgenda');
+Route::post('/event/rsvp', 'GuestController@postRsvp');
 
 Route::get('/documents', 'GuestController@getPublicDocuments');
 Route::get('/documents/download/{id}', 'GuestController@getDownloadDocuments');
@@ -32,20 +33,3 @@ Route::get('/documents/download/{id}', 'GuestController@getDownloadDocuments');
 // require specific routes Here
 require __DIR__ . '/Admin/AdminRoutes.php';
 require __DIR__ . '/User/UserRoutes.php';
-
-Route::get('/test', function () {
-  $start_date = (new Carbon(date('Y-m-d') . App\Settings::first()->crane_start_time));
-
-  for ($i=1; $i <= 16 ; $i++) {
-    $current_time = $start_date->addMinutes(30);
-    foreach (App\CraneReservation::all() as $reservation) {
-      if (Carbon::parse($reservation->time)->format('H:i') == $current_time->format('H:i')) {
-        echo "already taken <br>";
-      } else {
-        echo $current_time->format('H:i') . '<br>';
-      }
-      $start_date = $current_time;
-    }
-  }
-  return;
-});

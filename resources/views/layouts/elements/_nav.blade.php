@@ -38,6 +38,7 @@
                 <!-- Authentication Links -->
               @guest
                 <li><a style="color:white;" href="{{ route('login') }}">Log in <i class="fa fa-sign-in" aria-hidden="true"></i> </a></li>
+                <li><a style="color:white;" href="{{ route('register') }}">Registreer <i class="fa fa-user" aria-hidden="true"></i></a></li>
               @else
                 <li class="dropdown">
                     <a style="color:white;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
