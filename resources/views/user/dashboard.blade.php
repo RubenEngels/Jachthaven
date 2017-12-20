@@ -9,7 +9,7 @@
             Facturen
           </div>
           <div class="panel-body">
-            @if(!empty(Auth::user()->invoice))
+            @if(Auth::user()->invoice->first() != null)
               <table class="table table-striped">
                 <tr>
                   <th>Id</th>
@@ -65,23 +65,26 @@
             <h4>Je eigen boten</h4>
           </div>
           <div class="panel-body">
-            <table class="table table-striped">
-              <tr>
-                <th>Naam:</th>
-                <th>Geregistreerd op:</th>
-                <th>Acties:</th>
-              </tr>
-              @foreach (Auth::user()->boats as $boat)
+            @if(Auth::user()->boats->first() != null)
+              <table class="table table-striped">
                 <tr>
-                  <td>{{ $boat->name }}</td>
-                  <td>{{ $boat->created_at->format('d/m/Y') }}</td>
-                  <td>
-                    <button href="#" data-toggle="modal" data-target="#{{ str_slug($boat->name) }}" style="background-color:#163f92;" class="btn btn-primary">Acties</button>
-                  </td>
-</td>
+                  <th>Naam:</th>
+                  <th>Geregistreerd op:</th>
+                  <th>Acties:</th>
                 </tr>
-              @endforeach
-            </table>
+                @foreach (Auth::user()->boats as $boat)
+                  <tr>
+                    <td>{{ $boat->name }}</td>
+                    <td>{{ $boat->created_at->format('d/m/Y') }}</td>
+                    <td>
+                      <button href="#" data-toggle="modal" data-target="#{{ str_slug($boat->name) }}" style="background-color:#163f92;" class="btn btn-primary">Acties</button>
+                    </td>
+                  </tr>
+                @endforeach
+              </table>
+            @else
+              <h4>Er zijn nog geen geregistreerde boten!</h4>
+            @endif
           </div>
         </div>
       </div>
