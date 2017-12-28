@@ -4,6 +4,18 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+        <div class="alert alert-success text-center">
+            Welkom terug {{ Auth::user()->name }}. Je bent ingelogd als
+            @if (Auth::user()->isAdmin())
+              <i><b>administrator</b></i>.
+            @else
+              <i><b>jachthaven lid</b></i>.
+            @endif
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
             Facturen
