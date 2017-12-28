@@ -55,7 +55,15 @@
                 <button type="submit" class="btn btn-primary" style="background-color:#163f92;">Krediteer</button>
                 <a href="/user/invoice/pdf/{{ $invoice->id }}" class="btn btn-default">Bekijk</a>
                 @if($invoice->payed_at == null)
-                  <a href="/admin/invoice/setAsPayed/{{ $invoice->id }}" class="btn btn-primary" style="background-color:#163f92;">Zet op betaald</a>
+                  <a id="showDateAlert" class="btn btn-primary" style="background-color:#163f92;">Zet op betaald</a>
+                  {{-- <a href="/admin/invoice/setAsPayed/{{ $invoice->id }}" class="btn btn-primary" style="background-color:#163f92;">Zet op betaald</a> --}}
+                  <script>
+                  $(document).ready(function () {
+                    $('#showDateAlert').click(function() {
+                      window.location.href = "/admin/invoice/setAsPayed/{{$invoice->id}}/" + prompt('Op welke datum is de factuur betaald?');
+                    });
+                  })
+                  </script>
                 @else
                   <button disabled type="button" class="btn btn-primary" style="background-color:#163f92;">Deze factuur is reeds betaald</button>
                 @endif

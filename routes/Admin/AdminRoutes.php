@@ -30,7 +30,7 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::get('/invoice/delete/{id}', 'AdminDashboardController@getDeleteInvoice');
   Route::post('/dashboard/invoice/new', 'AdminDashboardController@postNewInvoice');
   Route::get('/dashboard/invoice/export', 'AdminDashboardController@exportInvoices');
-  Route::get('/invoice/setAsPayed/{id}', 'AdminDashboardController@getSetAsPayed');
+  Route::get('/invoice/setAsPayed/{id}/{date}', 'AdminDashboardController@getSetAsPayed');
 
   Route::post('/invoice/product/change/{id}', 'AdminController@postChangeDefaultInvoiceProduct');
   Route::post('/settings/invoice/products/new', 'AdminController@postNewInvoiceProduct');

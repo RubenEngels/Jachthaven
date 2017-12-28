@@ -230,11 +230,11 @@ class AdminDashboardController extends Controller
     return ExportInvoices::excel();
   }
 
-  public function getSetAsPayed($id)
+  public function getSetAsPayed($id, $date)
   {
     $invoice = Invoice::find($id);
 
-    $invoice->payed_at = \Carbon\Carbon::now();
+    $invoice->payed_at = \Carbon\Carbon::parse($date);
 
     $invoice->save();
 
