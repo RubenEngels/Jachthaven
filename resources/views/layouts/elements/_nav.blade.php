@@ -46,6 +46,7 @@
                     </a>
 
                     <ul class="dropdown-menu">
+                        <li><a href="/user/dashboard"><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard</a> </li>
                         <li><a href="/user/profile"><i class="fa fa-user" aria-hidden="true"></i> Eigen profiel</a></li>
                         <li>
                             <a href="{{ route('logout') }}"
