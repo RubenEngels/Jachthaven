@@ -232,6 +232,11 @@ class AdminDashboardController extends Controller
 
   public function getSetAsPayed($id, $date)
   {
+    if ($date === 'null') {
+      return redirect()
+        ->back()
+        ->with('status', 'De betaald op datum mag niet leeg zijn!');
+    }
     $invoice = Invoice::find($id);
 
     $invoice->payed_at = \Carbon\Carbon::parse($date);
