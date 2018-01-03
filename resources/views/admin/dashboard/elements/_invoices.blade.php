@@ -117,7 +117,25 @@
               @endforeach
             </select>
             <div class="item-add-wrapper">
-
+              <br>
+              @foreach ($defaultInvoiceItems as $product)
+                @if ($product->default_on_invoice)
+                  <div class="row">
+                    <div class="col-md-5">
+                      <label class="form-label">Naam</label>
+                      <input type="text" class="form-control" name="item_name[]" value="{{ $product->name }}">
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Prijs €</label>
+                      <input type="number" step="0.01" min="0" class="form-control" name="item_price[]" value="{{ $product->price }}">
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label">Aantal</label>
+                      <input type="number" name="item_quantity[]" class="form-control" min="1" value="{{ $product->quantity}}">
+                    </div>
+                  </div>
+                @endif
+              @endforeach
               <br>
             </div>
             <div class="row">

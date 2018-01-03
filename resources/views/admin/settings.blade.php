@@ -64,6 +64,7 @@
                         <th>Naam</th>
                         <th>Standaard aantal</th>
                         <th>Prijs</th>
+                        <th>Op factuur</th>
                         <th>Acties</th>
                       </tr>
                       @foreach ($invoice_products as $product)
@@ -72,6 +73,13 @@
                           <td>{{ $product->name }}</td>
                           <td>{{ $product->quantity }}</td>
                           <td>€ {{ $product->price }}</td>
+                          <td>
+                            @if ($product->default_on_invoice)
+                              <i class="fa fa-check" aria-hidden="true"></i>
+                            @else
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            @endif
+                          </td>
                           <td><a href="#" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);" data-toggle="modal" data-target="#product_{{ $product->id }}">Wijzig</a></td>
                         </tr>
                       @endforeach
@@ -94,6 +102,9 @@
                     <br>
                     <label class="form-label">Prijs</label>
                     <input type="number" step="0.01" name="price" class="form-control">
+                    <br>
+                    <label class="form-label">Standaard op factuur</label>
+                    <input type="checkbox" name="default_on_invoice" class="form-control">
                     <br>
                     <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Sla op</button>
                   </form>
@@ -127,6 +138,9 @@
             <br>
             <label class="form-label">Prijs</label>
             <input type="number" step="0.01" name="price" value="{{ $product->price }}" class="form-control">
+            <br>
+            <label class="form-label">Standaard op factuur</label>
+            <input type="checkbox" name="default_on_invoice" class="form-control" {{ ($product->default_on_invoice) ? 'checked' : null }}>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>

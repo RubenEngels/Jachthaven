@@ -164,6 +164,7 @@ class AdminController extends Controller
       $product->name = $request->name;
       $product->quantity = $request->quantity;
       $product->price = $request->price;
+      $product->default_on_invoice = ($request->default_on_invoice == 'on') ? 1 : 0;
 
       $product->save();
 
@@ -178,6 +179,7 @@ class AdminController extends Controller
         'name' => $request->name,
         'quantity' => $request->quantity,
         'price' => $request->price,
+        'default_on_invoice' => ($request->default_on_invoice == 'on') ? 1 : 0,
       ]);
 
       return redirect()

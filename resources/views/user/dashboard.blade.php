@@ -36,7 +36,13 @@
                     <td>#{{ $i }}</td>
                     <td>{{ $invoice->name }}</td>
                     <td>{{ $invoice->sendDate->format('d/m/Y') }}</td>
-                    <td>{{ $invoice->dueDate->format('d/m/Y') }}</td>
+                    <td>
+                      @if (isset($invoice->payed_at))
+                        <i>Is al betaald!</i>
+                      @else
+                        {{ $invoice->dueDate->format('d/m/Y') }}
+                      @endif
+                    </td>
                     <td>
                       <a class="btn btn-primary" style="background-color:#163f92;" href="/user/invoice/pdf/{{ $invoice->id }}">Bekijk de factuur</a>
                     </td>
