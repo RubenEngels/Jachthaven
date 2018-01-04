@@ -221,6 +221,11 @@ class AdminController extends Controller
         "boatType" => $request->boatType,
       ]);
 
+      $user = User::find($request->owner);
+
+      $user->owner = true;
+      $user->save();
+
       return redirect()->back()->with('status', 'De boot is succesvol toegevoegd');
     }
 
