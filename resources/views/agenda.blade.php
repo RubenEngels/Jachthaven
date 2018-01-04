@@ -45,10 +45,10 @@
                     </div>
                     <div class="modal-body">
                       <label class="form-label">Naam</label>
-                      <input type="text" name="name" class="form-control">
+                      <input type="text" name="name" class="form-control" value="{{ @Auth::user()->name }}">
                       <br>
                       <label class="form-label">E-Mail:</label>
-                      <input type="email" name="email" class="form-control">
+                      <input type="email" name="email" class="form-control" value="{{ @Auth::user()->email }}">
                       <br>
                     </div>
                     <div class="modal-footer">
