@@ -10,13 +10,12 @@
                 </div>
 
                 <div class="panel-body">
+                  <div class="col-md-10 col-md-offset-1">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Naam</label>
-
-                            <div class="col-md-6">
+                            <label for="name" class="control-label">Naam</label>
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
 
                                 @if ($errors->has('name'))
@@ -24,27 +23,20 @@
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
-                            </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Adres</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                          <label for="email" class="control-label">E-Mail Adres</label>
+                          <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                          @if ($errors->has('email'))
+                              <span class="help-block">
+                                  <strong>{{ $errors->first('email') }}</strong>
+                              </span>
+                          @endif
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Wachtwoord</label>
-
-                            <div class="col-md-6">
+                            <label for="password" class="control-label">Wachtwoord</label>
                                 <input id="password" type="password" class="form-control" name="password" required>
 
                                 @if ($errors->has('password'))
@@ -52,15 +44,25 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
-                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Bevestig Wachtwoord</label>
-
-                            <div class="col-md-6">
+                            <label for="password-confirm" class="control-label">Bevestig Wachtwoord</label>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label">Stad</label>
+                          <input type="text" name="city" class="form-control" >
+                          <br>
+                          <label class="form-label">Straat + Huisnummer</label>
+                          <input type="text" name="street" class="form-control" >
+                          <br>
+                          <label class="form-label">Postcode</label>
+                          <input type="text" name="zip" class="form-control" >
+                          <br>
+                          <label class="form-label">Tel. Nummer</label>
+                          <input type="text" name="tel" class="form-control" >
+                          <br>
                         </div>
 
                         <div class="form-group">
@@ -71,6 +73,7 @@
                             </div>
                         </div>
                     </form>
+                  </div>
                 </div>
             </div>
         </div>
