@@ -62,13 +62,13 @@
             <table class="table table-striped">
               <tr>
                 <th>Boot naam: </th>
-                <th>Toegevoegd op: </th>
+                <th>In de haven</th>
                 <th>Acties: </th>
               </tr>
               @foreach ($boats as $boat)
                 <tr>
                   <td>{{ $boat->name }}</td>
-                  <td>{{ $boat->created_at->format('d/m/Y')}}</td>
+                  <td>{!! ($boat->inHabour) ? '<i class="fa fa-check" aria-hidden="false"></i>' : '<i class="fa fa-times" aria-hidden="false"></i>' !!}</td>
                   <td><button href="#" data-toggle="modal" data-target="#boat_{{ str_slug($boat->id) }}" style="background-color:#163f92;" class="btn btn-primary">Wijzig</button></td>
                 </tr>
               @endforeach

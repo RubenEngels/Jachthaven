@@ -18,6 +18,7 @@ class Boats extends Model
       "depth",
       "heigth",
       "boatType",
+      "inHabour",
     ];
 
     protected $dates = ['created_at'];
