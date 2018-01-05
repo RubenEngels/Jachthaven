@@ -32,4 +32,9 @@ class Boats extends Model
     {
       return $this->hasMany('App\CraneReservation', 'boat_id');
     }
+
+    public function Box()
+    {
+      return $this->belongsTo('App\Box');
+    }
 }
