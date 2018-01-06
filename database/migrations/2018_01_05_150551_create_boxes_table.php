@@ -16,6 +16,7 @@ class CreateBoxesTable extends Migration
         Schema::create('boxes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('public_id');
+            $table->boolean('isWalplaats');
             $table->timestamps();
         });
 
@@ -32,5 +33,9 @@ class CreateBoxesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('boxes');
+
+        Schema::table('boats', function (Blueprint $table) {
+          $table->dropColumn(['box_id']);
+        });
     }
 }
