@@ -8,6 +8,7 @@
       <ul class="nav nav-tabs">
         <li class=""><a  href="#1" data-toggle="tab">Algemene instellingen</a></li>
         <li class="active"><a href="#2" data-toggle="tab">Standaard producten factuur</a></li>
+        <li><a href="#3" data-toggle="tab">Indeling box / wal plaatsen</a> </li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane" id="1">
@@ -110,6 +111,26 @@
                   </form>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="3">
+            <div class="panel-heading" style="text-align:center;">
+              <h3>Indeling box / wal plaatsen</h3>
+            </div>
+            <div class="panel-body">
+              <form action="/admin/settings/layout" method="post">
+                {{ csrf_field() }}
+                <label class="from-label">Aantal boxen</label>
+                <input type="number" name="boxes" value="{{ App\Box::where('isWalplaats', 0)->count() }}" class="form-control" min="0" max="400">
+                <br>
+                <label class="from-label">Aantal walplaatsen</label>
+                <input type="number" name="walplaatsen" value="{{ App\Box::where('isWalplaats', 1)->count() }}" class="form-control" min="0" max="400">
+                <br>
+                <p>
+                  <button type="submit" class="btn btn-primary" style="background-color:rgb(22, 63, 146);">Wijzig indeling</button>
+                  &nbsp;&nbsp;(Totaal maximaal 400)
+                </p>
+              </form>
             </div>
           </div>
         </div>

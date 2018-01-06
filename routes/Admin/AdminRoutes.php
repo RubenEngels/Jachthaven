@@ -3,6 +3,7 @@
 Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function () {
   Route::get('settings','AdminController@getSettings');
   Route::post('settings', 'AdminController@postSettings');
+    Route::post('/settings/layout', 'AdminController@postEditLayout');
 
   Route::get('events', 'AdminController@getEvents');
   Route::post('events', 'AdminController@postEvents');
@@ -48,4 +49,6 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::get('/users', 'AdminController@getUsers');
   Route::post('/users', 'AdminController@postEditUsers');
   Route::get('/users/delete/{id}', 'AdminController@getDeleteUser');
+
+  Route::get('/habour/overview', 'AdminController@getHabourOverview');
 });

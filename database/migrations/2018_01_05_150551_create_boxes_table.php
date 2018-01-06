@@ -23,6 +23,20 @@ class CreateBoxesTable extends Migration
         Schema::table('boats', function(Blueprint $table) {
           $table->integer('box_id')->nullable();
         });
+
+        for ($i=0; $i < 200; $i++) {
+          App\Box::create([
+            'public_id' => $i,
+            'isWalplaats' => false
+          ]);
+        }
+
+        for ($i=0; $i < 200; $i++) {
+          App\Box::create([
+            'public_id' => $i,
+            'isWalplaats' => true
+          ]);
+        }
     }
 
     /**

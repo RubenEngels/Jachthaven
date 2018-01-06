@@ -11,6 +11,7 @@ use App\Documents;
 use App\InvoiceProducts;
 use App\Boats;
 use App\User;
+use App\Box;
 
 class AdminController extends Controller
 {
@@ -280,5 +281,30 @@ class AdminController extends Controller
       User::destroy($id);
 
       return redirect()->back()->with('status', 'De gebruiker is succesvol verwijderd');
+    }
+
+    public function postEditLayout(Request $request)
+    {
+      if ($request->walplaatsen + $request->boxes !== 400) {
+        return redirect()->back()->with('status', 'Het totaal moet 400 zijn!');
+      }
+
+      Box::truncate();
+
+      for ($i=1; $i <= $request->walplaatsen; $i++) {
+        Box::create([
+          'public_id' => $i,
+          'isWalplaats' => true,
+        ]);
+      }
+
+      for ($i=1; $i <= $request->boxes; $i++) {
+        Box::create([
+          'public_id' => $i,
+          'isWalplaats' => false,
+        ]);
+      }
+
+      return redirect()->back()->with('status', 'De box / wal plaatsen zijn opnieuw ingedeeld!');
     }
 }
