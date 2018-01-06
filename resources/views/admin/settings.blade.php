@@ -118,7 +118,7 @@
               <h3>Indeling box / wal plaatsen</h3>
             </div>
             <div class="panel-body">
-              <form action="/admin/settings/layout" method="post">
+              <form action="/admin/settings/layout" method="post" onsubmit="return confirm('Als u dit doet moeten alle boten opnieuw ingedeeld worden!');">
                 {{ csrf_field() }}
                 <label class="from-label">Aantal boxen</label>
                 <input type="number" name="boxes" value="{{ App\Box::where('isWalplaats', 0)->count() }}" class="form-control" min="0" max="400">
@@ -173,5 +173,31 @@
     </div>
   </div>
 @endforeach
+
+{{-- <script>
+  $(document).ready(function () {
+    $('#test').click(function () {
+      swal({
+        title: "Weet u dit zeker?",
+        text: "Alle boten zullen opnieuw ingedeeld moeten worden",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          $.post('/admin/settings/layout', {
+            'boxes': $('#boxes').value,
+            'walplaatsen': $('#walplaatsen').value,
+            'csrf_token': '{{ csrf_token() }}',
+          }, function (data) {
+            swal('De box / wal plaatsen zijn opnieuw ingedeeld');
+          });
+        } else {
+          swal("De wijzigingen worden niet uitgevoerd");
+        }
+      });
+    });
+  });
+</script> --}}
 
 @stop

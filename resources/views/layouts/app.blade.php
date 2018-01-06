@@ -47,6 +47,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://use.fontawesome.com/6b049bdfb5.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfFVbzEvLOX-rl_kPlD6A-FtFORpfh4vQ&callback=initMap"
