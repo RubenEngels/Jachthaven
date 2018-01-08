@@ -14,7 +14,7 @@
         @foreach ($walplaatsen as $wp)
           <tr>
             <td>Walplaats {{ $wp->public_id }}</td>
-            <td>{{ (!empty($wp->boat)) ? $wp->boat->name : 'Geen boot' }}</td>
+            <td>{!! (!empty($wp->boat)) ? $wp->boat->name : '<b>-</b>' !!}</td>
 
             <td>
               <a href="#" class="btn btn-primary btn-sm" style="background-color:#163f92;" data-target="#{{ 'walplaats_' . $wp->id }}" data-toggle="modal">Acties</a>

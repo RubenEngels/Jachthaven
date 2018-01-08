@@ -14,7 +14,7 @@
         @foreach ($boxes as $box)
           <tr>
             <td>Box {{ $box->public_id }}</td>
-            <td>{{ (!empty($box->boat)) ? $box->boat->name : 'geen boot' }}</td>
+            <td>{!! (!empty($box->boat)) ? $box->boat->name : '<b>-</b>' !!}</td>
 
             <td>
               <a href="#" class="btn btn-primary btn-sm" style="background-color:#163f92;" data-target="#{{ 'box_' . $box->id }}" data-toggle="modal">Acties</a>

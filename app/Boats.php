@@ -28,6 +28,10 @@ class Boats extends Model
       return $this->belongsTo('App\User');
     }
 
+    public function inBox() {
+      return $this->inHabour;
+    }
+
     public function Reservations()
     {
       return $this->hasMany('App\CraneReservation', 'boat_id');

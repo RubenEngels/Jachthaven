@@ -16,9 +16,16 @@
             <tr>
               <td>{{ $boat->name }}</td>
               <td>{{ $boat->created_at->format('d/m/Y') }}</td>
-              <td>{!! ($boat->inHabour) ? '<i class="fa fa-check" aria-hidden="false"></i>' : '<i class="fa fa-times" aria-hidden="false"></i>' !!}</td>
+              <td>{!! ($boat->inBox()) ? '<i class="fa fa-check" aria-hidden="false"></i>' : '<i class="fa fa-times" aria-hidden="false"></i>' !!}</td>
               <td>
-                <button href="#" data-toggle="modal" data-target="#{{ str_slug($boat->name) }}" style="background-color:#163f92;" class="btn btn-primary">Acties</button>
+                <div class="btn-group">
+                  <button href="#" data-toggle="modal" data-target="#{{ str_slug($boat->name) }}" style="background-color:#163f92;" class="btn btn-primary">Plan een reservering</button>
+                  <button type="button" style="background-color:#163f92;" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                      <li><a href="#" data-toggle="modal" data-target="#pos_{{ $boat->id }}">Boot in / uit de haven</a></li>
+                  </ul>
+                </div>
+
               </td>
             </tr>
           @endforeach
@@ -57,6 +64,32 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
             <button type="submit" class="btn btn-primary" id="reserve" style="background-color:#163f92;">Reserveer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="pos_{{ $boat->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="/user/dashboard/inhabour" method="post">
+          {{ csrf_field() }}
+          <input type="hidden" name="boat_id" value="{{ $boat->id }}">
+          <div class="modal-header">
+            <h5 class="modal-title"><b>Meld wanneer de boot uit / weer terug in de haven is</b></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label class="form-label">Mijn boot is in de haven</label>
+            <input type="checkbox" name="inHabour" {{ ($boat->inHabour) ? 'checked' : null}} class="form-control">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+            <button type="submit" class="btn btn-primary" id="reserve" style="background-color:#163f92;">Sla op</button>
           </div>
         </form>
       </div>

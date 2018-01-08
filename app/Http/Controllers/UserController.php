@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Invoice;
 use App\CraneReservation;
 use App\Settings;
+use App\Boats;
 use Carbon\Carbon;
 use Auth;
 use PDF;
@@ -100,5 +101,20 @@ class UserController extends Controller
       return redirect()
         ->back()
         ->with('status', 'De reservering is geplaatst om ' . $time->format('d/m/Y H:i:s'));
+    }
+
+    public function postInHabour(Request $request)
+    {
+      $boat = Boats::find($request->boat_id);
+      
+      if ($request->inHabour == 'on') {
+        $boat->inHabour = true;
+      } else {
+        $boat->inHabour = false;
+      }
+
+      $boat->save();
+
+      return redirect()->back()->with('status', 'De wijzigingen zijn successvol opgeslagen');
     }
 }
