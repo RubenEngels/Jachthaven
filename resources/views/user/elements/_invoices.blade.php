@@ -1,7 +1,7 @@
 <div class="col-md-12">
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
-      Facturen
+      <h4>Facturen</h4>
     </div>
     <div class="panel-body">
       @if(Auth::user()->invoice->first() != null)
@@ -13,10 +13,9 @@
             <th>Te betalen voor</th>
             <th>Acties</th>
           </tr>
-          @php $i = 1; @endphp
           @foreach (Auth::user()->invoice->sortByDesc('id') as $invoice)
             <tr>
-              <td>#{{ $i }}</td>
+              <td>#{{ $loop->index + 1 }}</td>
               <td>{{ $invoice->name }}</td>
               <td>{{ $invoice->sendDate->format('d/m/Y') }}</td>
               <td>
@@ -30,7 +29,6 @@
                 <a class="btn btn-primary" style="background-color:#163f92;" href="/user/invoice/pdf/{{ $invoice->id }}">Bekijk de factuur</a>
               </td>
             </tr>
-            @php $i++; @endphp
           @endforeach
         </table>
       @else
