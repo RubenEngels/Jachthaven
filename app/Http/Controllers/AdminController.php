@@ -307,11 +307,4 @@ class AdminController extends Controller
 
       return redirect()->back()->with('status', 'De box / wal plaatsen zijn opnieuw ingedeeld!');
     }
-
-    public function getHabourOverview()
-    {
-      return view('admin.habour.overview')
-        ->with('boxes', Box::where('isWalplaats', false)->get())
-        ->witH('walplaatsen', Box::where('isWalplaats', true)->get());
-    }
 }

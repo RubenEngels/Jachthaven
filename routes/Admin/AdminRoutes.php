@@ -50,5 +50,7 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::post('/users', 'AdminController@postEditUsers');
   Route::get('/users/delete/{id}', 'AdminController@getDeleteUser');
 
-  Route::get('/habour/overview', 'AdminController@getHabourOverview');
+  Route::get('/habour/overview', 'HabourController@getHabourOverview');
+  Route::post('/habour/assign/box', 'HabourController@postAssignBox');
+  Route::post('/habour/assign/walplaats', 'HabourController@postAssignWalplaats');
 });
