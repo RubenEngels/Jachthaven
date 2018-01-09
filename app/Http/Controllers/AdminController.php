@@ -267,9 +267,22 @@ class AdminController extends Controller
     public function postEditUsers(Request $request)
     {
       $user = User::find($request->id);
+      $admins = User::where('admin', true)->count();
 
-      $user->name = $request->name;
-      $user->email = $request->email;
+      if ($request->isAdmin == 'on') {
+        $user->admin = true;
+      } else {
+        if ($admins <= 1) {
+          return redirect()->back()->with('status', 'Er is nog maar 1 administrator over. Je kan dit niet doen!');
+        }
+        $user->admin = false;
+      }
+
+      if ($request->isOwner == 'on') {
+        $user->owner = true;
+      } else {
+        $user->owner = false;
+      }
 
       $user->save();
 
