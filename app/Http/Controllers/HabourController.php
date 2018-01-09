@@ -31,9 +31,20 @@ class HabourController extends Controller
   {
     $boat = Boats::find($request->boat_id);
 
-    $boat->box_id = $request->box_id;
+    $boat->box_id = $request->wp_id;
     $boat->save();
 
     return redirect()->back()->with('status', 'De walplaats is succesvol toegewezen aan de boot <b><i>' . $boat->name . '</i></b>');
+  }
+
+  public function getClearForTransfer($id)
+  {
+    $boat = Boats::find($id);
+
+    $boat->box_id = null;
+    $boat->save();
+
+    return redirect()->back()->with('status', 'De boot is succesvol vrijgegeven voor overplaatsing!');
+
   }
 }

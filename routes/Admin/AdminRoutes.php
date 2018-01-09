@@ -53,4 +53,5 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::get('/habour/overview', 'HabourController@getHabourOverview');
   Route::post('/habour/assign/box', 'HabourController@postAssignBox');
   Route::post('/habour/assign/walplaats', 'HabourController@postAssignWalplaats');
+  Route::get('/habour/clearfortransfer/{id}', 'HabourController@getClearForTransfer');
 });

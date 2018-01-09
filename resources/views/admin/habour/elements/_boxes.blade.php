@@ -8,14 +8,20 @@
         <tr>
           <th>Naam:</th>
           <th>Boot:</th>
-
+          <th>In de haven:</th>
           <th>Acties: </th>
         </tr>
         @foreach ($boxes as $box)
           <tr>
             <td>Box {{ $box->public_id }}</td>
             <td>{!! (!empty($box->boat)) ? $box->boat->name : '<b>-</b>' !!}</td>
-
+            <td>
+              @if (isset($box->boat))
+                {!! ($box->boat->inHabour) ? '<i class="fa fa-check" aria-hidden="false"></i>' : '<i class="fa fa-times" aria-hidden="false"></i>'  !!}
+              @else
+                <b>-</b>
+              @endif
+            </td>
             <td>
               <a href="#" class="btn btn-primary btn-sm" style="background-color:#163f92;" data-target="#{{ 'box_' . $box->id }}" data-toggle="modal">Acties</a>
             </td>
@@ -50,14 +56,21 @@
                     <option value="{{ $boat->id }}">{{ $boat->name }}</option>
                   @endforeach
               </select>
+            @elseif (isset($box->boat))
+              <select class="form-control" disabled>
+                <option>Er zit al een boot in deze box</option>
+              </select>
             @else
               <select class="form-control" name="" disabled>
-                <option value="">er zijn geen boten beschikbaar</option>
+                <option value="">Er zijn geen boten beschikbaar</option>
               </select>
             @endif
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+            @if (null !== $box->boat)
+              <a class="btn btn-default" href="/admin/habour/clearfortransfer/{{ $box->boat->id }}">Geef de boot vrij voor overplaatsing</a>
+            @endif
             <button type="submit" class="btn btn-primary" style="background-color:#163f92">Opslaan</button>
           </div>
         </form>

@@ -58,6 +58,9 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+            @if (null !== $wp->boat)
+              <a class="btn btn-default" href="/admin/habour/clearfortransfer/{{ $wp->boat->id }}">Geef de boot vrij voor overplaatsing</a>
+            @endif
             <button type="submit" class="btn btn-primary" style="background-color:#163f92">Opslaan</button>
           </div>
         </form>
