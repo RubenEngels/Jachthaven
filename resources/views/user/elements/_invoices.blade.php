@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-8">
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color:rgba(22, 63, 146, .1)">
       <h4>Facturen</h4>

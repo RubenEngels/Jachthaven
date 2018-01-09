@@ -8,7 +8,10 @@ use App\Invoice;
 use App\CraneReservation;
 use App\Settings;
 use App\Boats;
+use App\RentedBox;
+
 use Carbon\Carbon;
+
 use Auth;
 use PDF;
 
@@ -45,9 +48,10 @@ class UserController extends Controller
       $current_time = $start_date->addMinutes(30);
 
       return view('user.dashboard')
-      ->with('crane_reservations', $crane_reservations)
-      ->with('start_date', $start_date)
-      ->with('current_time', $start_date);
+        ->with('rented_boxes', Auth::user()->rentedBox)
+        ->with('crane_reservations', $crane_reservations)
+        ->with('start_date', $start_date)
+        ->with('current_time', $start_date);
     }
 
     public function getInvoicePdf($id)
@@ -106,7 +110,7 @@ class UserController extends Controller
     public function postInHabour(Request $request)
     {
       $boat = Boats::find($request->boat_id);
-      
+
       if ($request->inHabour == 'on') {
         $boat->inHabour = true;
       } else {

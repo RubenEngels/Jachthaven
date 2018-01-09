@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Boats;
 use App\Box;
+use App\RentedBox;
+use App\User;
 
 class HabourController extends Controller
 {
@@ -45,6 +47,24 @@ class HabourController extends Controller
     $boat->save();
 
     return redirect()->back()->with('status', 'De boot is succesvol vrijgegeven voor overplaatsing!');
+  }
 
+  public function postRentBox(Request $request)
+  {
+    $user = User::find($request->rentTo);
+
+    RentedBox::create([
+      'user_id' => $user->id,
+      'box_id' => $request->box_id,
+    ]);
+
+    return redirect()->back()->with('status', 'De box is succesvol verhuurd aan <b><i>' . $user->name . '</i></b>');
+  }
+
+  public function getReleaseRent($id)
+  {
+    RentedBox::destroy($id);
+
+    return redirect()->back()->with('status', 'De box is succesvol vrij gegeven');
   }
 }

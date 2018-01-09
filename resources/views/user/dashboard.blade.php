@@ -18,6 +18,7 @@
     </div>
     <div class="row">
       @include('user.elements._invoices')
+      @include('user.elements._rented_boxes')
     </div>
     <div class="row">
       @include('user.elements._boats')

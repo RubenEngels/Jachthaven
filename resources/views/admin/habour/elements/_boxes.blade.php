@@ -23,7 +23,20 @@
               @endif
             </td>
             <td>
-              <a href="#" class="btn btn-primary btn-sm" style="background-color:#163f92;" data-target="#{{ 'box_' . $box->id }}" data-toggle="modal">Acties</a>
+              <div class="btn-group">
+                <button href="#" data-toggle="modal" data-target="#{{ 'box_' . $box->id }}" style="background-color:#163f92;" class="btn btn-primary btn-sm">Wijs een boot toe</button>
+                <button type="button" style="background-color:#163f92;" class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  @if (null !== $box->boat)
+                    <li><a href="/admin/habour/clearfortransfer/{{ $box->boat->id }}">Geef de boot vrij voor overplaatsing</a></li>
+                    @if (!$box->boat->inHabour)
+                      <li><a href="#" data-toggle="modal" data-target="#{{ 'rent_' . $box->id }}">Verhuur deze box</a> </li>
+                    @endif
+                  @else
+                    <li><a href="#" data-toggle="modal" data-target="#{{ 'rent_' . $box->id }}">Verhuur deze box</a> </li>
+                  @endif
+                </ul>
+              </div>
             </td>
           </tr>
         @endforeach
@@ -68,10 +81,47 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-            @if (null !== $box->boat)
-              <a class="btn btn-default" href="/admin/habour/clearfortransfer/{{ $box->boat->id }}">Geef de boot vrij voor overplaatsing</a>
-            @endif
             <button type="submit" class="btn btn-primary" style="background-color:#163f92">Opslaan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="{{ 'rent_' . $box->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="/admin/habour/rent" method="post">
+          {{ csrf_field() }}
+          <input type="hidden" name="box_id" value="{{ $box->id }}">
+          <div class="modal-header">
+            <h5 class="modal-title"><b>Verhuur deze box:</b></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            @if (isset($box->rent))
+              <label class="form-label">Deze box is verhuurd aan</label>
+              <select class="form-control" disabled>
+                <option>{{ $box->rent->user->name }}</option>
+              </select>
+            @else
+              <label class="form-label">Verhuur aan</label>
+              <select class="form-control" name="rentTo">
+                @foreach (App\User::all() as $user)
+                  <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+              </select>
+            @endif
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+            @if (isset($box->rent))
+              <a class="btn btn-primary" style="background-color:#163f92;" href="/admin/habour/rent/relase/{{ $box->rent->id }}">Geef deze box vrij</a>
+            @else
+              <button type="submit" class="btn btn-primary" style="background-color:#163f92">Verhuur</button>
+            @endif
           </div>
         </form>
       </div>

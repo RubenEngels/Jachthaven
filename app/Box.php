@@ -10,7 +10,13 @@ class Box extends Model
       'public_id', 'boat_id', 'isWalplaats'
     ];
 
-    public function boat() {
+    public function boat()
+    {
       return $this->hasOne('App\Boats');
+    }
+
+    public function rent()
+    {
+      return $this->hasOne('App\RentedBox');
     }
 }
