@@ -19,6 +19,11 @@ use App\ExportCrane;
 use App\CraneReservation;
 use App\Settings;
 use Carbon\Carbon;
+use App\Events;
+use App\EventRsvp;
+use App\Box;
+use App\RentedBox;
+use App\Boats;
 use Auth;
 use PDF;
 
@@ -251,5 +256,17 @@ class AdminDashboardController extends Controller
   public function getExportCrane()
   {
     return ExportCrane::excel();
+  }
+
+  public function getStats()
+  {
+    return view('admin.stats')
+      ->with('boats', Boats::all())
+      ->with('rented', RentedBox::all())
+      ->with('boxes', Box::where('isWalplaats', false)->get())
+      ->with('walplaatsen', Box::where('isWalplaats', true)->get())
+      ->with('rsvp', EventRsvp::all())
+      ->with('events', Events::all())
+      ->with('users', User::all());
   }
 }

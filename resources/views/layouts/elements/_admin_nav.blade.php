@@ -13,5 +13,6 @@
         <li><a href="/admin/boat/create">Boten<i class="fa fa-ship" style="padding-left:65px;" aria-hidden="true"></i> </a> </li>
         <li><a href="/admin/users">Gebruikers<i class="fa fa-user" style="padding-left:36px;" aria-hidden="true"></i> </a> </li>
         <li><a href="/admin/habour/overview">De Haven<i class="fa fa-ship" style="padding-left:40px;" aria-hidden="true"></i> </a> </li>
+        <li><a href="/admin/stats">Statestieken<i class="fa fa-bar-chart" style="padding-left:25px;" aria-hidden="true"></i> </a> </li>
     </ul>
 </li>
