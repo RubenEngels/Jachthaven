@@ -23,7 +23,7 @@
                       <td>{{ $event->name }}</td>
                       <td>{{ $event->location }}</td>
                       <td>{{ $event->date->format('d/m/Y') }}</td>
-                      <td><i>{{ $event->from }}</i> uur - <b>Tot:</b> <i>{{ $event->till }}</i> uur</td>
+                      <td><i>{{ $event->from }}</i> uur - <i>{{ $event->till }}</i> uur</td>
                       <td>
                         <button href="#" data-toggle="modal" data-target="#{{ str_slug($event->name) }}" class="btn btn-primary" style="background-color:rgba(22,63,146,1);">Wijzig</button>
                       </td>
