@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'city', 'street', 'zip', 'tel', 'passant'
+        'name', 'email', 'password', 'city', 'street', 'zip', 'tel', 'passant', 'documenter', 'management'
     ];
 
     /**
@@ -40,6 +40,16 @@ class User extends Authenticatable
     public function isPassant()
     {
       return $this->passnat;
+    }
+
+    public function isDocumenter()
+    {
+      return $this->documenter;
+    }
+
+    public function isManagement()
+    {
+      return $this->management;
     }
 
     public function invoice()
