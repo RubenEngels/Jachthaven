@@ -30,11 +30,17 @@ class CreateBoxesTable extends Migration
             'isWalplaats' => false
           ]);
         }
-
         for ($i=0; $i < 200; $i++) {
-          App\Box::create([
-            'public_id' => $i,
-            'isWalplaats' => true
+          if ($i % 10 == 0 OR $i == 0) {
+            $pier = Pier::create([
+              'public_id' => $pier_id + 1,
+            ]);
+            $pier_id = $pier->id;
+          }
+          Box::create([
+            'public_id' => $i + 1,
+            'isWalplaats' => false,
+            'pier_id' => $pier_id
           ]);
         }
     }

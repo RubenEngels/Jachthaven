@@ -67,4 +67,17 @@ class HabourController extends Controller
 
     return redirect()->back()->with('status', 'De box is succesvol vrij gegeven');
   }
+
+  public function postChangeBox(Request $request)
+  {
+    $box = Box::find($request->box_id);
+
+    $box->length = $request->length;
+    $box->width = $request->width;
+    $box->depth = $request->depth;
+
+    $box->save();
+
+    return redirect()->back()->with('status', 'De wijzigingen zijn succesvol opgeslagen');
+  }
 }

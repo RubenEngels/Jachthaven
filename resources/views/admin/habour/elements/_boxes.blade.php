@@ -9,6 +9,7 @@
           <th>Naam:</th>
           <th>Boot:</th>
           <th>In de haven:</th>
+          <th>Steiger:</th>
           <th>Acties: </th>
         </tr>
         @foreach ($boxes as $box)
@@ -22,6 +23,7 @@
                 <b>-</b>
               @endif
             </td>
+            <td>{{ $box->pier->public_id }}</td>
             <td>
               <div class="btn-group">
                 <button href="#" data-toggle="modal" data-target="#{{ 'box_' . $box->id }}" style="background-color:#163f92;" class="btn btn-primary btn-sm">Wijs een boot toe</button>
@@ -35,6 +37,7 @@
                   @else
                     <li><a href="#" data-toggle="modal" data-target="#{{ 'rent_' . $box->id }}">Verhuur deze box</a> </li>
                   @endif
+                  <li><a href="#" data-toggle="modal" data-target="#{{ 'change_box_' . $box->id }}">Wijzig</a> </li>
                 </ul>
               </div>
             </td>
@@ -87,6 +90,7 @@
       </div>
     </div>
   </div>
+
   <div class="modal fade" id="{{ 'rent_' . $box->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -122,6 +126,37 @@
             @else
               <button type="submit" class="btn btn-primary" style="background-color:#163f92">Verhuur</button>
             @endif
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="change_box_{{ $box->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="/admin/habour/box/change" method="post">
+          {{ csrf_field() }}
+          <input type="hidden" name="box_id" value="{{ $box->id }}">
+          <div class="modal-header">
+            <h5 class="modal-title"><b>Wijzig deze box:</b></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label class="form-label">Lengte:</label>
+            <input type="number" step="0.01" class="form-control" name="length" value="{{ $box->length }}">
+            <br>
+            <label class="form-label">Breedte:</label>
+            <input type="number" step="0.01" class="form-control" name="width" value="{{ $box->width }}">
+            <br>
+            <label class="form-label">Diepte:</label>
+            <input type="number" step="0.01" class="form-control" name="depth" value="{{ $box->depth }}">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+            <button type="submit" class="btn btn-primary" style="background-color:#163f92">Sla op</button>
           </div>
         </form>
       </div>

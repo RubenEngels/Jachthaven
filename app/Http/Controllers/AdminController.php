@@ -12,6 +12,7 @@ use App\InvoiceProducts;
 use App\Boats;
 use App\User;
 use App\Box;
+use App\Pier;
 
 class AdminController extends Controller
 {
@@ -303,18 +304,28 @@ class AdminController extends Controller
       }
 
       Box::truncate();
+      Pier::truncate();
 
-      for ($i=1; $i <= $request->walplaatsen; $i++) {
+      $pier_id = 0;
+
+      for ($i=0; $i < $request->walplaatsen; $i++) {
         Box::create([
-          'public_id' => $i,
+          'public_id' => $i + 1,
           'isWalplaats' => true,
         ]);
       }
 
-      for ($i=1; $i <= $request->boxes; $i++) {
+      for ($i=0; $i < $request->boxes; $i++) {
+        if ($i % 10 == 0 OR $i == 0) {
+          $pier = Pier::create([
+            'public_id' => $pier_id + 1,
+          ]);
+          $pier_id = $pier->id;
+        }
         Box::create([
-          'public_id' => $i,
+          'public_id' => $i + 1,
           'isWalplaats' => false,
+          'pier_id' => $pier_id
         ]);
       }
 
