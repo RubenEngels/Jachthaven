@@ -7,11 +7,11 @@
         <div class="alert alert-success text-center">
             Welkom terug {{ Auth::user()->name }}. Je bent ingelogd als
             @if (Auth::user()->isAdmin())
-              <i><b>administrator</b></i>.
+              <i><b>Havenmeester</b></i>.
             @elseif (Auth::user()->isOwner())
-              <i><b>boot eigenaar</b></i>.
+              <i><b>Boot eigenaar</b></i>.
             @else
-              <i><b>jachthaven lid</b></i>.
+              <i><b>Jachthaven lid</b></i>.
             @endif
         </div>
       </div>
