@@ -263,13 +263,18 @@ class AdminDashboardController extends Controller
 
   public function getStats()
   {
+    $date = \Carbon\Carbon::now()->subMonths(Settings::first()->period);
+    $invoices = Invoice::where('sendDate', '>=', $date->format('Y-m-d'))->get();
+
+    $revenue = 0;
+    foreach ($invoices as $invoice) {
+      $revenue += $invoice->getTotal();
+    }
+
     return view('admin.stats')
       ->with('boats', Boats::all())
       ->with('rented', RentedBox::withTrashed())
-      ->with('boxes', Box::where('isWalplaats', false)->get())
-      ->with('walplaatsen', Box::where('isWalplaats', true)->get())
-      ->with('rsvp', EventRsvp::all())
-      ->with('events', Events::all())
+      ->with('revenue', $revenue)
       ->with('users', User::all());
   }
 }

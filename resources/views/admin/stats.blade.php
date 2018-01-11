@@ -16,6 +16,7 @@
           <td>{{ $boats->count() }} Boten</td>
           <td>{{ $users->where('passant', true)->count() }} Passant(en)</td>
           <td>{{ $rented->count() }} Box(en)</td>
+          <td>{{ $revenue }} Euro</td>
         </tr>
       </table>
     </div>
