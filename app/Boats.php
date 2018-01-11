@@ -8,17 +8,18 @@ class Boats extends Model
 {
 
     protected $fillable = [
-      'name',
-      'user_id',
-      'brand',
-      'type',
-      'color',
+      "name",
+      "user_id",
+      "brand",
+      "type",
+      "color",
       "length",
       "width",
       "depth",
       "heigth",
       "boatType",
       "inHabour",
+      "image_url"
     ];
 
     protected $dates = ['created_at'];

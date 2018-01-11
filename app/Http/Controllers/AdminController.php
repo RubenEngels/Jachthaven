@@ -235,16 +235,14 @@ class AdminController extends Controller
     {
       $boat = Boats::find($id);
 
-      $boat->name = $request->name;
-      $boat->brand = $request->brand;
-      $boat->type = $request->type;
-      $boat->color = $request->color;
-      $boat->length = $request->length;
-      $boat->width = $request->width;
-      $boat->depth = $request->depth;
-      $boat->heigth = $request->heigth;
-      $boat->boatType = $request->boatType;
+      $request->validate([
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+      ]);
 
+      $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+      $request->image->move(public_path('uploads/boats'), $imageName);
+
+      $boat->image_url = $imageName;
       $boat->save();
 
       return redirect()->back()->with('status', 'De boot is succesvol aangepast');

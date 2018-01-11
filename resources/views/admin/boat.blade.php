@@ -95,7 +95,7 @@
     <div class="modal fade" id="boat_{{ str_slug($boat->id) }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form action="/admin/boat/edit/{{ $boat->id }}" method="post">
+          <form action="/admin/boat/edit/{{ $boat->id }}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="modal-header">
               <h5 class="modal-title"><b>Wijzig boot</b></h5>
@@ -104,7 +104,14 @@
               </button>
             </div>
             <div class="modal-body">
-              later to do
+              <label class="from-label">Boot foto:</label>
+              <input type="file" name="image" class="form-control">
+              <br>
+              @if (isset($boat->image_url))
+                <label class="form-label">De huidige foto:</label>
+                <br>
+                <img class="img" src="/uploads/boats/{{ $boat->image_url }}" alt="img" width="150px" height="100%">
+              @endif
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
