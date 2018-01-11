@@ -25,7 +25,7 @@ class AddPeriodKeyToSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('settings', function () {
+        Schema::table('settings', function (Blueprint $table) {
           $table->dropColumn(['period']);
         });
     }
