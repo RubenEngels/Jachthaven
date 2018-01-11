@@ -12,7 +12,7 @@
       {{ csrf_field() }}
       <div class="col-md-2" style="margin-top:20px;">
         <label style="color:white;" class="form-label">E-Mail</label>
-        <input style="color:white;" type="text" class="form-control" name="email" placeholder="jan@jansen.nl" required>
+        <input style="color:black;" type="text" class="form-control" name="email" placeholder="jan@jansen.nl" required>
 
       </div>
       <div class="col-md-1" style="margin-top:47px;">
