@@ -262,7 +262,7 @@ class AdminDashboardController extends Controller
   {
     return view('admin.stats')
       ->with('boats', Boats::all())
-      ->with('rented', RentedBox::all())
+      ->with('rented', RentedBox::withTrashed())
       ->with('boxes', Box::where('isWalplaats', false)->get())
       ->with('walplaatsen', Box::where('isWalplaats', true)->get())
       ->with('rsvp', EventRsvp::all())

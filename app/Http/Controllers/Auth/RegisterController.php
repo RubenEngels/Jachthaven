@@ -74,6 +74,7 @@ class RegisterController extends Controller
             'street' => $data['street'],
             'zip' => $data['zip'],
             'tel' => $data['tel'],
+            'passant' => ($data['passant'] == 'on') ? true : false,
         ]);
     }
 }

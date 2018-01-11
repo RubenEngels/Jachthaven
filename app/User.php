@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'city', 'street', 'zip', 'tel',
+        'name', 'email', 'password', 'city', 'street', 'zip', 'tel', 'passant'
     ];
 
     /**
@@ -35,6 +35,11 @@ class User extends Authenticatable
     public function isOwner()
     {
       return $this->owner; // this looks for an owner column in your users table
+    }
+
+    public function isPassant()
+    {
+      return $this->passnat;
     }
 
     public function invoice()

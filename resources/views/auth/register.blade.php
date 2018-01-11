@@ -63,8 +63,10 @@
                           <label class="form-label">Tel. Nummer</label>
                           <input type="text" name="tel" class="form-control" >
                           <br>
+                          <label class="form-label">Ik ben een tijdelijke passant</label>
+                          <input type="checkbox" name="passant" class="form-control">
+                          <br>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary" style="background-color:rgb(22, 63, 146);">
