@@ -52,9 +52,13 @@
           </div>
           <div class="modal-body">
             <label class="form-label">Kies een datum</label>
-            <input type="date" name="date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="form-control">
+            <input type="date" id="reservation_date" name="date" class="form-control">
             <br>
             <input type="hidden" name="boat_id" value="{{ $boat->id }}">
+            <div id="time_div">
+
+            </div>
+            <br>
             <label class="form-label">Type</label>
             <select class="form-control" name="type">
               <option value="in-water">In het water zetten</option>
@@ -96,3 +100,22 @@
     </div>
   </div>
 @endforeach
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#reservation_date').change(function () {
+      $('#to_remove').remove();
+      var date = this.value
+      $.get('/user/dashboard/reservation/available/' + date + '/', function (data) {
+        var html = '<div id="to_remove"><label class="form-label">Kies een tijd</label><select class="form-control" name="time">';
+        $.each(JSON.parse(data), function (index, value) {
+          html += '<option value="' + value + '">' + value + '</option>';
+        });
+        html += '</select></div>';
+        console.log(html);
+
+        $('#time_div').append(html);
+      });
+    });
+  });
+</script>

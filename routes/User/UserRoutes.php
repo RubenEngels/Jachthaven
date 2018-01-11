@@ -5,6 +5,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
 
   Route::post('/dashboard/plan', 'UserController@postPlan');
   Route::post('/dashboard/inhabour', 'UserController@postInHabour');
+  Route::get('/dashboard/reservation/available/{date}', 'UserController@postGetReservationData');
 
   Route::get('/profile', 'UserController@getProfile');
   Route::post('/profile', 'UserController@postProfile');
