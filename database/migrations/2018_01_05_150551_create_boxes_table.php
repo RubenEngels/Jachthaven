@@ -26,23 +26,17 @@ class CreateBoxesTable extends Migration
 
         for ($i=0; $i < 200; $i++) {
           App\Box::create([
-            'public_id' => $i,
+            'public_id' => $i + 1,
             'isWalplaats' => false
           ]);
         }
         for ($i=0; $i < 200; $i++) {
-          if ($i % 10 == 0 OR $i == 0) {
-            $pier = Pier::create([
-              'public_id' => $pier_id + 1,
-            ]);
-            $pier_id = $pier->id;
-          }
-          Box::create([
+          App\Box::create([
             'public_id' => $i + 1,
-            'isWalplaats' => false,
-            'pier_id' => $pier_id
+            'isWalplaats' => true
           ]);
         }
+
     }
 
     /**

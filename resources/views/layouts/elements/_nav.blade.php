@@ -29,6 +29,14 @@
                 @include('layouts.elements._admin_nav')
               @endrole
 
+              @role('Documenter')
+                @include('layouts.elements._admin_nav')
+              @endrole
+
+              @role('Management')
+                @include('layouts.elements._admin_nav')
+              @endrole
+
               @guest
               @else
                   <li><a style="color:white;" href="#" data-toggle="modal" data-target="#inboxModal">Inbox <i class="fa fa-inbox" aria-hidden="true"></i> </a> </li>

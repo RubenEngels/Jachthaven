@@ -23,7 +23,7 @@
                 <b>-</b>
               @endif
             </td>
-            <td>{{ $box->pier->public_id }}</td>
+            <td>{{ (isset($box->pier)) ? $box->pier->public_id : '-' }}</td>
             <td>
               <div class="btn-group">
                 <button href="#" data-toggle="modal" data-target="#{{ 'box_' . $box->id }}" style="background-color:#163f92;" class="btn btn-primary btn-sm">Wijs een boot toe</button>

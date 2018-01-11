@@ -47,11 +47,24 @@
               </button>
             </div>
             <div class="modal-body">
-              <label class="form-label">De gebruiker is administrator</label>
-              <input type="checkbox" name="isAdmin" class="form-control" {{ ($user->isAdmin()) ? 'checked' : null }}>
-              <br>
+              @if(Auth::user()->isAdmin())
+                <label class="form-label">De gebruiker is havenmeester</label>
+                <input type="checkbox" name="isAdmin" class="form-control" {{ ($user->isAdmin()) ? 'checked' : null }}>
+                <input type="hidden" name="check1" value="show">
+                <br>
+              @else
+                <input type="hidden" name="check1" value="hidden">
+              @endif
+
               <label class="form-label">De gebruiker is boot eigenaar</label>
               <input type="checkbox" name="isOwner" class="form-control" {{ ($user->isOwner()) ? 'checked' : null}}>
+              <br>
+              <label class="form-label">De gebruiker is administratief medewerker</label>
+              <input type="checkbox" name="isDocumenter" class="form-control" {{ ($user->isDocumenter()) ? 'checked' : null}}>
+              <br>
+              <label class="form-label">De gebruiker is een lid van bestuurd</label>
+              <input type="checkbox" name="isManagement" class="form-control" {{ ($user->isManagement()) ? 'checked' : null}}>
+              <br>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPeriodKeyToSettingsTable extends Migration
+class AddRolesKeysToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class AddPeriodKeyToSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::table('settings', function (Blueprint $table) {
-          $table->integer('period');
-        });
-    }
+      Schema::table('users', function (Blueprint $table) {
+        $table->boolean('documenter')->default(false);
+        $table->boolean('management')->default(false);
+      });
 
+    }
     /**
      * Reverse the migrations.
      *
@@ -25,8 +26,8 @@ class AddPeriodKeyToSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('settings', function (Blueprint $table) {
-          $table->dropColumn(['period']);
+        Schema::table('users', function (Blueprint $table) {
+          $table->dropColumn(['documenter', 'management']);
         });
     }
 }

@@ -8,6 +8,10 @@
             Welkom terug {{ Auth::user()->name }}. Je bent ingelogd als
             @if (Auth::user()->isAdmin())
               <i><b>Havenmeester</b></i>.
+            @elseif (Auth::user()->isManagement())
+              <i><b>Lid van bestuur</b></i>.
+            @elseif (Auth::user()->isDocumenter())
+              <i><b>Administratief medewerker</b></i>.
             @elseif (Auth::user()->isOwner())
               <i><b>Boot eigenaar</b></i>.
             @else
