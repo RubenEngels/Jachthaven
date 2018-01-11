@@ -269,19 +269,33 @@ class AdminController extends Controller
       $user = User::find($request->id);
       $admins = User::where('admin', true)->count();
 
-      if ($request->isAdmin == 'on') {
-        $user->admin = true;
-      } else {
-        if ($admins <= 1) {
-          return redirect()->back()->with('status', 'Er is nog maar 1 administrator over. Je kan dit niet doen!');
+      if ($request->check == 'show') {
+        if ($request->isAdmin == 'on') {
+          $user->admin = true;
+        } else {
+          if ($admins <= 1) {
+            return redirect()->back()->with('status', 'Er is nog maar 1 administrator over. Je kan dit niet doen!');
+          }
+          $user->admin = false;
         }
-        $user->admin = false;
       }
 
       if ($request->isOwner == 'on') {
         $user->owner = true;
       } else {
         $user->owner = false;
+      }
+
+      if ($request->isManagement == 'on') {
+        $user->management = true;
+      } else {
+        $user->management = false;
+      }
+
+      if ($request->isDocumenter == 'on') {
+        $user->documenter = true;
+      } else {
+        $user->documenter = false;
       }
 
       $user->save();
