@@ -14,7 +14,17 @@
           <ul class="dropdown-menu">
             @if (count($user->invoice) !== 0)
               @foreach ($user->invoice as $invoice)
-                <li><a data-toggle="modal" data-target="#invoice_{{ str_slug($invoice->id)}}" href="#">{{ $invoice->name}}</a></li>
+                <li>
+                  <a data-toggle="modal" data-target="#invoice_{{ str_slug($invoice->id)}}" href="#">
+                    @if (isset($invoice->payed_at))
+                      {{ $invoice->name }} <b>(betaald)</b>
+                    @elseif (\Carbon\Carbon::parse($invoice->dueDate) <= \Carbon\Carbon::now())
+                      {{ $invoice->name }} <b>(Te laat)</b>
+                    @else
+                      {{ $invoice->name}}
+                    @endif
+                  </a>
+                </li>
               @endforeach
             @else
               <p style="padding-left:10px;padding-right:10px;">Deze gebruiker heeft nog geen facturen</p>
