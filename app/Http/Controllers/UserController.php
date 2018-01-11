@@ -69,7 +69,7 @@ class UserController extends Controller
 
     public function postPlan(Request $request)
     {
-      if (CraneReservation::where('time', $request->time)->first() !== null) {
+      if (CraneReservation::where('time', $request->time)->where('date', $request->date)->first() !== null) {
         throw new \Exception("Error Bestaat al", 1);
       }
       CraneReservation::create([
@@ -102,28 +102,27 @@ class UserController extends Controller
 
     public function postGetReservationData($date)
     {
-      $carbon_date = \Carbon\Carbon::parse($date);
-      $reservations = CraneReservation::where('date', $carbon_date)->get();
+      $times = [];
+      $start_time = Carbon::parse('0000-00-00 08:30')->format('H:i');
+      $end_time = Carbon::parse('0000-00-00 16:00')->format('H:i');
       $interval = Settings::first()->kraan_tijd_vereist;
-      $current_time = \Carbon\Carbon::parse(Settings::first()->crane_start_time);
-      $possible_times = [];
-      $tmp_i = null;
+      $reservations = CraneReservation::where('date', Carbon::parse($date)->format('Y-m-d'))->get();
+      $current_time = Carbon::parse($start_time);
 
-      for ($i=0; $i < (60 * 7.5) / $interval; $i++) {
-        if ($reservations->first() !== null) {
+
+      while ($current_time->format('H:i') != $end_time) {
+        if (null !== $reservations->first()) {
           foreach ($reservations as $reservation) {
-            if (\Carbon\Carbon::parse($reservation->time) != \Carbon\Carbon::parse($current_time)) {
-              if ($i != $tmp_i) {
-                $possible_times[] = $current_time->format('H:i');
-              }
+            if (Carbon::parse($reservation->time)->format('H:i') != Carbon::parse($current_time)->format('H:i')) {
+              $times[] = $current_time->format('H:i');
             }
           }
         } else {
-          $possible_times[] = $current_time->format('H:i');
+          $times[] = $current_time->format('H:i');
         }
         $current_time = $current_time->addMinutes($interval);
-        $tmp_i = $i;
       }
-      return json_encode($possible_times);
+
+      return json_encode($times);
     }
 }
