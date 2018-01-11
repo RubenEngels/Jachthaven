@@ -40,6 +40,13 @@
                     <label class="form-label">Kraan reservering start tijd</label>
                     <input type="text" name="crane_start_time" class="form-control" value="{!! $settings->crane_start_time !!}">
                     <br>
+                    <label class="form-label">Duur van een periode</label>
+                    <select class="form-control" name="period">
+                      @for ($i=0; $i < 12; $i++)
+                        <option {{ ($settings->period == $i + 1) ? 'selected' : null }} value="{{ $i + 1 }}">{{ $i + 1 }} Maand(en)</option>
+                      @endfor
+                    </select>
+                    <br>
                     <input type="submit" class="btn btn-primary btn-lg" style="background-color:rgba(22, 63, 146, 1);" value="Sla op!">
                   </div>
                   <div class="col-md-6">
