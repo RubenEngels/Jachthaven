@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Invoice;
 use App\CraneReservation;
 use App\Settings;
+use App\Boats;
+use App\RentedBox;
+
 use Carbon\Carbon;
+
 use Auth;
 use PDF;
 
@@ -44,9 +48,10 @@ class UserController extends Controller
       $current_time = $start_date->addMinutes(30);
 
       return view('user.dashboard')
-      ->with('crane_reservations', $crane_reservations)
-      ->with('start_date', $start_date)
-      ->with('current_time', $start_date);
+        ->with('rented_boxes', Auth::user()->rentedBox)
+        ->with('crane_reservations', $crane_reservations)
+        ->with('start_date', $start_date)
+        ->with('current_time', $start_date);
     }
 
     public function getInvoicePdf($id)
@@ -64,41 +69,61 @@ class UserController extends Controller
 
     public function postPlan(Request $request)
     {
-      $start_date = (new Carbon(date('Y-m-d') . Settings::first()->crane_start_time));
-      $current_time = $start_date->addMinutes(30);
-
-      if ($request->date >= \Carbon\Carbon::now()) {
-        return redirect()
-          ->back()
-          ->withInput()
-          ->withErrors('De datum moet minimaal vandaag zijn!');
-      }
-
-      $reservations = CraneReservation::where('date', \Carbon\Carbon::parse($request->date))->orderByDesc('time')->get();
-
-      if (null == $reservations->first()) {
-        CraneReservation::create([
-          'user_id' => Auth::user()->id,
-          'boat_id' => $request->boat_id,
-          'date' => $request->date,
-          'time' => $current_time,
-          'type' => $request->type
-        ]);
-
-        return redirect()
-          ->back()
-          ->with('status', 'De reservering is geplaatst om ' . $current_time->format('d/m/Y H:i:s'));
+      if (CraneReservation::where('time', $request->time)->first() !== null) {
+        throw new \Exception("Error Bestaat al", 1);
       }
       CraneReservation::create([
         'user_id' => Auth::user()->id,
         'boat_id' => $request->boat_id,
         'date' => $request->date,
-        'time' => $time = \Carbon\Carbon::parse($reservations->max('time'))->addMinutes(30),
+        'time' => $request->time,
         'type' => $request->type
       ]);
 
       return redirect()
         ->back()
-        ->with('status', 'De reservering is geplaatst om ' . $time->format('d/m/Y H:i:s'));
+        ->with('status', 'De reservering is geplaatst om ' . \Carbon\Carbon::parse($request->time)->format('d/m/Y H:i:s'));
+    }
+
+    public function postInHabour(Request $request)
+    {
+      $boat = Boats::find($request->boat_id);
+
+      if ($request->inHabour == 'on') {
+        $boat->inHabour = true;
+      } else {
+        $boat->inHabour = false;
+      }
+
+      $boat->save();
+
+      return redirect()->back()->with('status', 'De wijzigingen zijn successvol opgeslagen');
+    }
+
+    public function postGetReservationData($date)
+    {
+      $carbon_date = \Carbon\Carbon::parse($date);
+      $reservations = CraneReservation::where('date', $carbon_date)->get();
+      $interval = Settings::first()->kraan_tijd_vereist;
+      $current_time = \Carbon\Carbon::parse(Settings::first()->crane_start_time);
+      $possible_times = [];
+      $tmp_i = null;
+
+      for ($i=0; $i < (60 * 7.5) / $interval; $i++) {
+        if ($reservations->first() !== null) {
+          foreach ($reservations as $reservation) {
+            if (\Carbon\Carbon::parse($reservation->time) != \Carbon\Carbon::parse($current_time)) {
+              if ($i != $tmp_i) {
+                $possible_times[] = $current_time->format('H:i');
+              }
+            }
+          }
+        } else {
+          $possible_times[] = $current_time->format('H:i');
+        }
+        $current_time = $current_time->addMinutes($interval);
+        $tmp_i = $i;
+      }
+      return json_encode($possible_times);
     }
 }

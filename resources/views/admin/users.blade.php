@@ -47,11 +47,11 @@
               </button>
             </div>
             <div class="modal-body">
-              <label class="form-label">Naam: </label>
-              <input type="text" name="name" class="form-control" value="{{ $user->name }}">
+              <label class="form-label">De gebruiker is administrator</label>
+              <input type="checkbox" name="isAdmin" class="form-control" {{ ($user->isAdmin()) ? 'checked' : null }}>
               <br>
-              <label class="form-label">E-Mail: </label>
-              <input type="email" name="email" class="form-control" value="{{ $user->email }}">
+              <label class="form-label">De gebruiker is boot eigenaar</label>
+              <input type="checkbox" name="isOwner" class="form-control" {{ ($user->isOwner()) ? 'checked' : null}}>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>

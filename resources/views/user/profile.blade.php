@@ -2,23 +2,6 @@
 
 @section('content')
   <div class="container">
-    {{-- <div class="row">
-      <div class="panel panel-default">
-        <div class="panel-heading" style="text-align:center;">
-          <h3>Je eigen profiel <i class="fa fa-user" aria-hidden="true"></i> </h3>
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-12" style="text-align:center;">
-              <p>
-                <img src="/uploads/avatars/{{ Auth::user()->image }}" alt="default" style="border-radius:50%;margin-right:20px;border:1px solid black;" width="200;" height="200px;">
-                <a data-toggle="modal" data-target="#editPhoto"><span style="font-size:20px;"><i class="fa fa-camera" aria-hidden="true"></i> Wijzig uw foto</span></a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> --}}
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-body">
@@ -26,7 +9,7 @@
               <form class="" action="/user/profile" method="post">
                 {!! csrf_field() !!}
                 <label class="form-label">Uw naam</label>
-                <input type="text" name="name" class="form-control" value="{{ $user->name }}">
+                <input type="text" name="name" class="form-control" value="{{ $user->name }}" disabled>
                 <br>
                 <label class="form-label">E-Mail</label>
                 <input type="email" name="email" class="form-control" value="{{ $user->email }}">

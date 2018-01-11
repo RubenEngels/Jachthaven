@@ -14,7 +14,17 @@
           <ul class="dropdown-menu">
             @if (count($user->invoice) !== 0)
               @foreach ($user->invoice as $invoice)
-                <li><a data-toggle="modal" data-target="#invoice_{{ str_slug($invoice->id)}}" href="#">{{ $invoice->name}}</a></li>
+                <li>
+                  <a data-toggle="modal" data-target="#invoice_{{ str_slug($invoice->id)}}" href="#">
+                    @if (isset($invoice->payed_at))
+                      {{ $invoice->name }} <b>(betaald)</b>
+                    @elseif (\Carbon\Carbon::parse($invoice->dueDate) <= \Carbon\Carbon::now())
+                      {{ $invoice->name }} <b>(Te laat)</b>
+                    @else
+                      {{ $invoice->name}}
+                    @endif
+                  </a>
+                </li>
               @endforeach
             @else
               <p style="padding-left:10px;padding-right:10px;">Deze gebruiker heeft nog geen facturen</p>
@@ -55,7 +65,15 @@
                 <button type="submit" class="btn btn-primary" style="background-color:#163f92;">Krediteer</button>
                 <a href="/user/invoice/pdf/{{ $invoice->id }}" class="btn btn-default">Bekijk</a>
                 @if($invoice->payed_at == null)
-                  <a href="/admin/invoice/setAsPayed/{{ $invoice->id }}" class="btn btn-primary" style="background-color:#163f92;">Zet op betaald</a>
+                  <a id="showDateAlert" class="btn btn-primary" style="background-color:#163f92;">Zet op betaald</a>
+                  {{-- <a href="/admin/invoice/setAsPayed/{{ $invoice->id }}" class="btn btn-primary" style="background-color:#163f92;">Zet op betaald</a> --}}
+                  <script>
+                  $(document).ready(function () {
+                    $('#showDateAlert').click(function() {
+                      window.location.href = "/admin/invoice/setAsPayed/{{$invoice->id}}/" + prompt('Op welke datum is de factuur betaald?');
+                    });
+                  })
+                  </script>
                 @else
                   <button disabled type="button" class="btn btn-primary" style="background-color:#163f92;">Deze factuur is reeds betaald</button>
                 @endif
@@ -109,7 +127,25 @@
               @endforeach
             </select>
             <div class="item-add-wrapper">
-
+              <br>
+              @foreach ($defaultInvoiceItems as $product)
+                @if ($product->default_on_invoice)
+                  <div class="row">
+                    <div class="col-md-5">
+                      <label class="form-label">Naam</label>
+                      <input type="text" class="form-control" name="item_name[]" value="{{ $product->name }}">
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Prijs €</label>
+                      <input type="number" step="0.01" min="0" class="form-control" name="item_price[]" value="{{ $product->price }}">
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label">Aantal</label>
+                      <input type="number" name="item_quantity[]" class="form-control" min="1" value="{{ $product->quantity}}">
+                    </div>
+                  </div>
+                @endif
+              @endforeach
               <br>
             </div>
             <div class="row">

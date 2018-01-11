@@ -8,6 +8,7 @@
       <ul class="nav nav-tabs">
         <li class=""><a  href="#1" data-toggle="tab">Algemene instellingen</a></li>
         <li class="active"><a href="#2" data-toggle="tab">Standaard producten factuur</a></li>
+        <li><a href="#3" data-toggle="tab">Indeling box / wal plaatsen</a> </li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane" id="1">
@@ -64,6 +65,7 @@
                         <th>Naam</th>
                         <th>Standaard aantal</th>
                         <th>Prijs</th>
+                        <th>Op factuur</th>
                         <th>Acties</th>
                       </tr>
                       @foreach ($invoice_products as $product)
@@ -72,6 +74,13 @@
                           <td>{{ $product->name }}</td>
                           <td>{{ $product->quantity }}</td>
                           <td>€ {{ $product->price }}</td>
+                          <td>
+                            @if ($product->default_on_invoice)
+                              <i class="fa fa-check" aria-hidden="true"></i>
+                            @else
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            @endif
+                          </td>
                           <td><a href="#" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);" data-toggle="modal" data-target="#product_{{ $product->id }}">Wijzig</a></td>
                         </tr>
                       @endforeach
@@ -95,10 +104,33 @@
                     <label class="form-label">Prijs</label>
                     <input type="number" step="0.01" name="price" class="form-control">
                     <br>
+                    <label class="form-label">Standaard op factuur</label>
+                    <input type="checkbox" name="default_on_invoice" class="form-control">
+                    <br>
                     <button type="submit" class="btn btn-primary" style="background-color:rgba(22, 63, 146, 1);">Sla op</button>
                   </form>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="3">
+            <div class="panel-heading" style="text-align:center;">
+              <h3>Indeling box / wal plaatsen</h3>
+            </div>
+            <div class="panel-body">
+              <form action="/admin/settings/layout" method="post" onsubmit="return confirm('Als u dit doet moeten alle boten opnieuw ingedeeld worden!');">
+                {{ csrf_field() }}
+                <label class="from-label">Aantal boxen</label>
+                <input type="number" name="boxes" value="{{ App\Box::where('isWalplaats', 0)->count() }}" class="form-control" min="0" max="400">
+                <br>
+                <label class="from-label">Aantal walplaatsen</label>
+                <input type="number" name="walplaatsen" value="{{ App\Box::where('isWalplaats', 1)->count() }}" class="form-control" min="0" max="400">
+                <br>
+                <p>
+                  <button type="submit" class="btn btn-primary" style="background-color:rgb(22, 63, 146);">Wijzig indeling</button>
+                  &nbsp;&nbsp;(Totaal maximaal 400)
+                </p>
+              </form>
             </div>
           </div>
         </div>
@@ -127,6 +159,9 @@
             <br>
             <label class="form-label">Prijs</label>
             <input type="number" step="0.01" name="price" value="{{ $product->price }}" class="form-control">
+            <br>
+            <label class="form-label">Standaard op factuur</label>
+            <input type="checkbox" name="default_on_invoice" class="form-control" {{ ($product->default_on_invoice) ? 'checked' : null }}>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
@@ -138,5 +173,31 @@
     </div>
   </div>
 @endforeach
+
+{{-- <script>
+  $(document).ready(function () {
+    $('#test').click(function () {
+      swal({
+        title: "Weet u dit zeker?",
+        text: "Alle boten zullen opnieuw ingedeeld moeten worden",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          $.post('/admin/settings/layout', {
+            'boxes': $('#boxes').value,
+            'walplaatsen': $('#walplaatsen').value,
+            'csrf_token': '{{ csrf_token() }}',
+          }, function (data) {
+            swal('De box / wal plaatsen zijn opnieuw ingedeeld');
+          });
+        } else {
+          swal("De wijzigingen worden niet uitgevoerd");
+        }
+      });
+    });
+  });
+</script> --}}
 
 @stop

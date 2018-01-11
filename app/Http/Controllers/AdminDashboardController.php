@@ -19,6 +19,11 @@ use App\ExportCrane;
 use App\CraneReservation;
 use App\Settings;
 use Carbon\Carbon;
+use App\Events;
+use App\EventRsvp;
+use App\Box;
+use App\RentedBox;
+use App\Boats;
 use Auth;
 use PDF;
 
@@ -230,11 +235,16 @@ class AdminDashboardController extends Controller
     return ExportInvoices::excel();
   }
 
-  public function getSetAsPayed($id)
+  public function getSetAsPayed($id, $date)
   {
+    if ($date === 'null') {
+      return redirect()
+        ->back()
+        ->with('status', 'De betaald op datum mag niet leeg zijn!');
+    }
     $invoice = Invoice::find($id);
 
-    $invoice->payed_at = \Carbon\Carbon::now();
+    $invoice->payed_at = \Carbon\Carbon::parse($date);
 
     $invoice->save();
 
@@ -246,5 +256,17 @@ class AdminDashboardController extends Controller
   public function getExportCrane()
   {
     return ExportCrane::excel();
+  }
+
+  public function getStats()
+  {
+    return view('admin.stats')
+      ->with('boats', Boats::all())
+      ->with('rented', RentedBox::withTrashed())
+      ->with('boxes', Box::where('isWalplaats', false)->get())
+      ->with('walplaatsen', Box::where('isWalplaats', true)->get())
+      ->with('rsvp', EventRsvp::all())
+      ->with('events', Events::all())
+      ->with('users', User::all());
   }
 }

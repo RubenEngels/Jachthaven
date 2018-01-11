@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'city', 'street', 'zip', 'tel', 'passant'
     ];
 
     /**
@@ -37,6 +37,11 @@ class User extends Authenticatable
       return $this->owner; // this looks for an owner column in your users table
     }
 
+    public function isPassant()
+    {
+      return $this->passnat;
+    }
+
     public function invoice()
     {
       return $this->hasMany('App\Invoice');
@@ -50,5 +55,10 @@ class User extends Authenticatable
     public function boats()
     {
       return $this->hasMany('App\Boats');
+    }
+
+    public function rentedBox()
+    {
+      return $this->hasMany('App\RentedBox');
     }
 }

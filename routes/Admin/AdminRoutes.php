@@ -3,6 +3,7 @@
 Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function () {
   Route::get('settings','AdminController@getSettings');
   Route::post('settings', 'AdminController@postSettings');
+    Route::post('/settings/layout', 'AdminController@postEditLayout');
 
   Route::get('events', 'AdminController@getEvents');
   Route::post('events', 'AdminController@postEvents');
@@ -30,7 +31,7 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::get('/invoice/delete/{id}', 'AdminDashboardController@getDeleteInvoice');
   Route::post('/dashboard/invoice/new', 'AdminDashboardController@postNewInvoice');
   Route::get('/dashboard/invoice/export', 'AdminDashboardController@exportInvoices');
-  Route::get('/invoice/setAsPayed/{id}', 'AdminDashboardController@getSetAsPayed');
+  Route::get('/invoice/setAsPayed/{id}/{date}', 'AdminDashboardController@getSetAsPayed');
 
   Route::post('/invoice/product/change/{id}', 'AdminController@postChangeDefaultInvoiceProduct');
   Route::post('/settings/invoice/products/new', 'AdminController@postNewInvoiceProduct');
@@ -48,4 +49,14 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
   Route::get('/users', 'AdminController@getUsers');
   Route::post('/users', 'AdminController@postEditUsers');
   Route::get('/users/delete/{id}', 'AdminController@getDeleteUser');
+
+  Route::get('/habour/overview', 'HabourController@getHabourOverview');
+  Route::post('/habour/assign/box', 'HabourController@postAssignBox');
+  Route::post('/habour/assign/walplaats', 'HabourController@postAssignWalplaats');
+  Route::get('/habour/clearfortransfer/{id}', 'HabourController@getClearForTransfer');
+  Route::post('/habour/rent', 'HabourController@postRentBox');
+  Route::get('/habour/rent/relase/{id}', 'HabourController@getReleaseRent');
+  Route::post('/habour/box/change', 'HabourController@postChangeBox');
+
+  Route::get('/stats', 'AdminDashboardController@getStats');
 });

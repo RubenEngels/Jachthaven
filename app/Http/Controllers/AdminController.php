@@ -11,6 +11,8 @@ use App\Documents;
 use App\InvoiceProducts;
 use App\Boats;
 use App\User;
+use App\Box;
+use App\Pier;
 
 class AdminController extends Controller
 {
@@ -164,6 +166,7 @@ class AdminController extends Controller
       $product->name = $request->name;
       $product->quantity = $request->quantity;
       $product->price = $request->price;
+      $product->default_on_invoice = ($request->default_on_invoice == 'on') ? 1 : 0;
 
       $product->save();
 
@@ -178,6 +181,7 @@ class AdminController extends Controller
         'name' => $request->name,
         'quantity' => $request->quantity,
         'price' => $request->price,
+        'default_on_invoice' => ($request->default_on_invoice == 'on') ? 1 : 0,
       ]);
 
       return redirect()
@@ -219,6 +223,11 @@ class AdminController extends Controller
         "boatType" => $request->boatType,
       ]);
 
+      $user = User::find($request->owner);
+
+      $user->owner = true;
+      $user->save();
+
       return redirect()->back()->with('status', 'De boot is succesvol toegevoegd');
     }
 
@@ -226,16 +235,14 @@ class AdminController extends Controller
     {
       $boat = Boats::find($id);
 
-      $boat->name = $request->name;
-      $boat->brand = $request->brand;
-      $boat->type = $request->type;
-      $boat->color = $request->color;
-      $boat->length = $request->length;
-      $boat->width = $request->width;
-      $boat->depth = $request->depth;
-      $boat->heigth = $request->heigth;
-      $boat->boatType = $request->boatType;
+      $request->validate([
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+      ]);
 
+      $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+      $request->image->move(public_path('uploads/boats'), $imageName);
+
+      $boat->image_url = $imageName;
       $boat->save();
 
       return redirect()->back()->with('status', 'De boot is succesvol aangepast');
@@ -259,9 +266,22 @@ class AdminController extends Controller
     public function postEditUsers(Request $request)
     {
       $user = User::find($request->id);
+      $admins = User::where('admin', true)->count();
 
-      $user->name = $request->name;
-      $user->email = $request->email;
+      if ($request->isAdmin == 'on') {
+        $user->admin = true;
+      } else {
+        if ($admins <= 1) {
+          return redirect()->back()->with('status', 'Er is nog maar 1 administrator over. Je kan dit niet doen!');
+        }
+        $user->admin = false;
+      }
+
+      if ($request->isOwner == 'on') {
+        $user->owner = true;
+      } else {
+        $user->owner = false;
+      }
 
       $user->save();
 
@@ -273,5 +293,40 @@ class AdminController extends Controller
       User::destroy($id);
 
       return redirect()->back()->with('status', 'De gebruiker is succesvol verwijderd');
+    }
+
+    public function postEditLayout(Request $request)
+    {
+      if ($request->walplaatsen + $request->boxes !== 400) {
+        return redirect()->back()->with('status', 'Het totaal moet 400 zijn!');
+      }
+
+      Box::truncate();
+      Pier::truncate();
+
+      $pier_id = 0;
+
+      for ($i=0; $i < $request->walplaatsen; $i++) {
+        Box::create([
+          'public_id' => $i + 1,
+          'isWalplaats' => true,
+        ]);
+      }
+
+      for ($i=0; $i < $request->boxes; $i++) {
+        if ($i % 10 == 0 OR $i == 0) {
+          $pier = Pier::create([
+            'public_id' => $pier_id + 1,
+          ]);
+          $pier_id = $pier->id;
+        }
+        Box::create([
+          'public_id' => $i + 1,
+          'isWalplaats' => false,
+          'pier_id' => $pier_id
+        ]);
+      }
+
+      return redirect()->back()->with('status', 'De box / wal plaatsen zijn opnieuw ingedeeld!');
     }
 }
