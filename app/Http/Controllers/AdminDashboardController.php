@@ -123,15 +123,18 @@ class AdminDashboardController extends Controller
 
   public function sendMail(Request $request)
   {
+    $mail_to = collect($request->to);
 
-    if ($request->to == 'everyone') {
+    if ($mail_to->contains('everyone')) {
       $mailing_list = MailingList::all();
 
       foreach ($mailing_list as $user) {
         \Mail::to($user->email)->send(new Newsletter($request->newsletter));
       }
     } else {
-      \Mail::to($request->to)->send(new Newsletter($request->newsletter));
+      foreach ($mail_to as $email) {
+        \Mail::to($email)->send(new Newsletter($request->newsletter));
+      }
     }
 
     return redirect()
