@@ -48,6 +48,7 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
 
   Route::get('/users', 'AdminController@getUsers');
   Route::post('/users', 'AdminController@postEditUsers');
+  Route::post('/users/change', 'AdminController@postChangeUser');
   Route::get('/users/delete/{id}', 'AdminController@getDeleteUser');
 
   Route::get('/habour/overview', 'HabourController@getHabourOverview');

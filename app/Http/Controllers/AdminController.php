@@ -344,4 +344,21 @@ class AdminController extends Controller
 
       return redirect()->back()->with('status', 'De box / wal plaatsen zijn opnieuw ingedeeld!');
     }
+
+    public function postChangeUser(Request $request)
+    {
+      $user = User::find($request->id);
+
+      $user->email = $request->email;
+      $user->city = $request->city;
+      $user->street = $request->street;
+      $user->zip = $request->zip;
+      $user->tel = $request->tel;
+
+      $user->save();
+
+      return redirect()
+        ->back()
+        ->with('status', 'Uw wijzigingen zijn succesvol opgeslagen!');
+    }
 }
