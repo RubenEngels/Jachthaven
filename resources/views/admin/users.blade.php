@@ -22,7 +22,15 @@
                   <td>{{ $user->email }}</td>
                   <td>{{ $user->created_at->format('d/m/Y') }}</td>
                   <td>
-                    <a href="#" class="btn btn-primary btn-sm" style="background-color:#163f92;" data-target="#user_{{ $user->id }}" data-toggle="modal">Acties</a>
+                    <!-- Example split danger button -->
+                    <div class="btn-group">
+                      <button href="#" class="btn btn-primary btn-sm" style="background-color:#163f92;" data-target="#user_{{ $user->id }}" data-toggle="modal">Rechten</button>
+                      <button type="button" style="background-color:#163f92;" class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-target="#user_change_{{ $user->id }}">Wijzig</a> </li>
+                      </ul>
+                    </div>
+
                   </td>
                 </tr>
               @endforeach
@@ -64,6 +72,48 @@
               <br>
               <label class="form-label">De gebruiker is een lid van bestuurd</label>
               <input type="checkbox" name="isManagement" class="form-control" {{ ($user->isManagement()) ? 'checked' : null}}>
+              <br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+              <button type="submit" class="btn btn-primary" style="background-color:#163f92">Opslaan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="user_change_{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form action="/admin/users/change" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="id" value="{{ $user->id }}">
+            <div class="modal-header">
+              <h5 class="modal-title"><b>Wijzig gebruiker:</b> <i>{{ $user->name }}</i></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <label class="form-label">Naam</label>
+              <input type="text" name="name" class="form-control" value="{{ $user->name }}" disabled>
+              <br>
+              <label class="form-label">E-Mail</label>
+              <input type="email" name="email" class="form-control" value="{{ $user->email }}">
+              <br>
+              <label class="form-label">Stad</label>
+              <input type="text" name="city" class="form-control" value="{{ $user->city }}">
+              <br>
+              <label class="form-label">Straat + Huisnummer</label>
+              <input type="text" name="street" class="form-control" value="{{ $user->street }}">
+              <br>
+              <label class="form-label">Postcode</label>
+              <input type="text" name="zip" class="form-control" value="{{ $user->zip }}">
+              <br>
+              <label class="form-label">Tel. Nummer</label>
+              <input type="text" name="tel" class="form-control" value="{{ $user->tel }}">
               <br>
             </div>
             <div class="modal-footer">
