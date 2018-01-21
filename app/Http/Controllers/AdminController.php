@@ -349,6 +349,7 @@ class AdminController extends Controller
     {
       $user = User::find($request->id);
 
+      $user->name = $request->name;
       $user->email = $request->email;
       $user->city = $request->city;
       $user->street = $request->street;
