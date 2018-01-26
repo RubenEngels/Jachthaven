@@ -180,6 +180,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
 
     ],
 

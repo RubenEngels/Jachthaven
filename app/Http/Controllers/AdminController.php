@@ -256,9 +256,13 @@ class AdminController extends Controller
       return redirect()->back()->with('status', 'De boot is succesvol verwijderd');
     }
 
-    public function getUsers()
+    public function getUsers($query = null)
     {
-      $users = User::all();
+      if (isset($query)) {
+        $users = User::search($query)->paginate(5);
+      } else {
+        $users = User::orderByDesc('created_at')->paginate(5);
+      }
 
       return view('admin.users')
         ->with('users', $users);
