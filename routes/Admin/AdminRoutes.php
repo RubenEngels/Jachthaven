@@ -46,7 +46,7 @@ Route::group(['middleware' => ['admin','auth'], 'prefix' => 'admin'], function (
 
   Route::get('/dashboard/export/crane', 'AdminDashboardController@getExportCrane');
 
-  Route::get('/users', 'AdminController@getUsers');
+  Route::get('/users/{query?}', 'AdminController@getUsers');
   Route::post('/users', 'AdminController@postEditUsers');
   Route::post('/users/change', 'AdminController@postChangeUser');
   Route::get('/users/delete/{id}', 'AdminController@getDeleteUser');
