@@ -10,9 +10,9 @@
               <div class="col-md-10">
                 <h4>Geregistreerde gebruikers</h4>
               </div>
-              <div class="col-md-2">
+              {{-- <div class="col-md-2">
                 <a style="margin-top:3.5px;background-color:#163f92;" data-target="#user_search" data-toggle="modal" class="btn btn-primary">Zoeken</a>
-              </div>
+              </div> --}}
             </div>
 
           </div>
