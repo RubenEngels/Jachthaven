@@ -69,10 +69,7 @@ class AdminDashboardController extends Controller
 
   public function getDeleteNotifications($id)
   {
-    $notification = UserNotifications::findOrFail($id);
-
-    $notification->show = false;
-    $notification->save();
+    UserNotifications::destroy($id);
 
     return redirect()
       ->back()
@@ -81,9 +78,7 @@ class AdminDashboardController extends Controller
 
   public function getMailDelete($id)
   {
-    $recipient = MailingList::findOrFail($id);
-
-    $recipient->delete();
+    MailingList::destroy($id);
 
     return redirect()
       ->back()
@@ -112,9 +107,7 @@ class AdminDashboardController extends Controller
 
   public function getDeleteNewsletter($id)
   {
-    $recipient = Newsletters::findOrFail($id);
-
-    $recipient->delete();
+    Newsletters::destroy($id);
 
     return redirect()
       ->back()
@@ -157,9 +150,7 @@ class AdminDashboardController extends Controller
 
   public function getDeleteInvoice($id)
   {
-    $invoice = Invoice::findOrFail($id);
-
-    $invoice->delete();
+    Invoice::destroy($id);
 
     return redirect()
       ->back()
