@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pier extends Model
 {
-    protected $fillable = ['public_id'];
+    protected $guarded = [];
 
     public function boxes()
     {

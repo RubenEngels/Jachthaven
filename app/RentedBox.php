@@ -9,7 +9,7 @@ class RentedBox extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'box_id'];
+    protected $guarded = [];
 
     protected $dates = ['created_at'];
 

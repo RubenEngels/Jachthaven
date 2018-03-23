@@ -8,7 +8,7 @@ class MailingList extends Model
 {
     public $table = 'mailing_lists';
 
-    protected $fillable = ['email'];
+    protected $guarded = [];
 
     protected $dates = ['created_at'];
 }

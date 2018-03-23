@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Documents extends Model
 {
-    protected $fillable = ['name', 'link', 'public'];
+    protected $guarded = [];
 
     protected $dates = ['created_at'];
 }

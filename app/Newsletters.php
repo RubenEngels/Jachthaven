@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Newsletters extends Model
 {
-    protected $fillable = ['content', 'name'];
-
+    protected $guarded = [];
+    
     protected $dates = ['created_at'];
 }

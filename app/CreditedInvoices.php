@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CreditedInvoices extends Model
 {
-    protected $fillable = ['invoice_id', 'reason', 'amount'];
+    protected $guarded = [];
 
     public function invoice()
     {

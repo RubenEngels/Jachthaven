@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventRsvp extends Model
 {
-    protected $fillable = ['event_id', 'name', 'email'];
-    
+    protected $guarded = [];
+
     public function event()
     {
       return $this->belongsTo('App\Events');

@@ -9,7 +9,7 @@ class Invoice extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'name', 'sendDate', 'dueDate'];
+    protected $guarded = [];
 
     protected $dates = ['dueDate', 'sendDate', 'deleted_at', 'payed_at'];
 
