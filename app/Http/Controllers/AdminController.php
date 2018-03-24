@@ -34,14 +34,14 @@ class AdminController extends Controller
         $settings = new Settings;
       }
 
-      $settings->box_jaar_huur = (isset($request->box_jaar_huur)) ? $request->box_jaar_huur : $settings->box_jaar_huur;
-      $settings->toeristen_belasting = (isset($request->toeristen_belasting)) ? $request->toeristen_belasting : $settings->toeristen_belasting;
-      $settings->btw = (isset($request->btw)) ? $request->btw : $settings->btw;
-      $settings->inschrijf_geld = (isset($request->inschrijf_geld)) ? $request->inschrijf_geld : $settings->inschrijf_geld;
-      $settings->lidmaatschap_prijs = (isset($request->lidmaatschap_prijs)) ? $request->lidmaatschap_prijs : $settings->lidmaatschap_prijs;
-      $settings->kraan_tijd_vereist = (isset($request->kraan_tijd_vereist)) ? $request->kraan_tijd_vereist : $settings->kraan_tijd_vereist;
-      $settings->crane_start_time = (isset($request->crane_start_time)) ? $request->crane_start_time : $settings->crane_start_time;
-      $settings->period = (isset($request->period)) ? $request->period : $settings->period;
+      $settings->box_jaar_huur = $request->box_jaar_huur;
+      $settings->toeristen_belasting = $request->toeristen_belasting;
+      $settings->btw = $request->btw;
+      $settings->inschrijf_geld = $request->inschrijf_geld;
+      $settings->lidmaatschap_prijs = $request->lidmaatschap_prijs;
+      $settings->kraan_tijd_vereist = $request->kraan_tijd_vereist;
+      $settings->crane_start_time = $request->crane_start_time;
+      $settings->period = $request->period;
 
       $settings->save();
 
@@ -89,9 +89,7 @@ class AdminController extends Controller
 
     public function getDeleteEvents($id)
     {
-      $event = Events::findOrFail($id);
-
-      $event->delete();
+      Events::destroy($id);
 
       return redirect()
         ->back()
@@ -110,8 +108,6 @@ class AdminController extends Controller
     {
       $document = Documents::find($request->id);
 
-      // dd($document->name);
-
       $document->name = $request->name;
       $document->public = ($request->public == 'false') ? false : true;
 
@@ -128,7 +124,7 @@ class AdminController extends Controller
         'file' => 'required|max:4096',
       ]);
 
-      $fileName = time().'.'. $request->file->getClientOriginalExtension();
+      $fileName = time() . '.' . $request->file->getClientOriginalExtension();
       $request->file->move(public_path('/uploads/documents/'), $fileName);
 
       Documents::create([
@@ -144,9 +140,7 @@ class AdminController extends Controller
 
     public function getDeleteDocument($id)
     {
-      $document = Documents::findOrFail($id);
-
-      $document->delete();
+      Documents::destroy($id);
 
       return redirect()
         ->back()
@@ -155,9 +149,7 @@ class AdminController extends Controller
 
     public function getDownloadDocument($id)
     {
-      $document = Documents::findOrFail($id);
-
-      return response()->download(public_path($document->link));
+      return response()->download(public_path(Documents::find($id)->link));
     }
 
     public function postChangeDefaultInvoiceProduct($id, Request $request)
@@ -192,9 +184,7 @@ class AdminController extends Controller
 
     public function getDeleteDefaultInvoiceProduct($id)
     {
-      $product = InvoiceProducts::findOrFail($id);
-
-      $product->delete();
+      InvoiceProducts::destroy($id);
 
       return redirect()
         ->back()
@@ -224,6 +214,7 @@ class AdminController extends Controller
         "boatType" => $request->boatType,
       ]);
 
+      // find the owner of the boat and change there role to boat owner
       $user = User::find($request->owner);
 
       $user->owner = true;
@@ -323,8 +314,6 @@ class AdminController extends Controller
       Box::truncate();
       Pier::truncate();
 
-      $pier_id = 0;
-
       for ($i=0; $i < $request->walplaatsen; $i++) {
         Box::create([
           'public_id' => $i + 1,
@@ -332,6 +321,7 @@ class AdminController extends Controller
         ]);
       }
 
+      $pier_id = 0;
       for ($i=0; $i < $request->boxes; $i++) {
         if ($i % 10 == 0 OR $i == 0) {
           $pier = Pier::create([

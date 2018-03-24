@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CraneReservation extends Model
 {
-    protected $fillable = ['date', 'time', 'type', 'user_id', 'boat_id'];
+    protected $guarded = [];
 
     public function user()
     {

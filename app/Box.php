@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Box extends Model
 {
-    protected $fillable = [
-      'public_id', 'boat_id', 'isWalplaats', 'pier_id'
-    ];
+    protected $guarded = [];
 
     public function boat()
     {

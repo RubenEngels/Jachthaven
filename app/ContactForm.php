@@ -8,5 +8,5 @@ class ContactForm extends Model
 {
     public $table = 'contact_forms';
 
-    protected $fillable = ['name', 'email', 'message'];
+    protected $guarded = [];
 }

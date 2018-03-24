@@ -8,5 +8,5 @@ class Settings extends Model
 {
     public $table = 'settings';
 
-    protected $fillable = [];
+    protected $guarded = [];
 }
