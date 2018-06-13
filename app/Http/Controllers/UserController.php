@@ -27,10 +27,10 @@ class UserController extends Controller
     {
       $user = Auth::user();
 
-      $user->name = $request->name;
+      $user->name = $user->name;
       $user->email = $request->email;
       $user->city = $request->city;
-      $user->street = $request->street;
+      $user->street = $request->street . " " . $request->number;
       $user->zip = $request->zip;
       $user->tel = $request->tel;
 
@@ -63,6 +63,7 @@ class UserController extends Controller
         ->render();
 
       $pdf = PDF::loadHtml($renderedInvoice);
+
       $pdf->setPaper('a4', 'landscape');
       return $pdf->stream();
     }

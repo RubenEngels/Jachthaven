@@ -47,11 +47,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $data['number'] = (int) $data['number'];
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'city' => 'required',
+            'number' => 'required',
             'street' => 'required',
             'zip' => 'required',
             'tel' => 'required',
@@ -69,12 +71,13 @@ class RegisterController extends Controller
       if (!isset($data['passant'])) {
         $data['passant'] = false;
       }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'city' => $data['city'],
-            'street' => $data['street'],
+            'street' => $data['street'] . " " . $data['number'],
             'zip' => $data['zip'],
             'tel' => $data['tel'],
             'passant' => ($data['passant'] == 'on') ? true : false,

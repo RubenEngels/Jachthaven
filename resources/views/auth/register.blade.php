@@ -51,14 +51,17 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                         </div>
                         <div class="form-group">
-                          <label class="form-label">Stad</label>
-                          <input type="text" name="city" class="form-control" >
-                          <br>
-                          <label class="form-label">Straat + Huisnummer</label>
-                          <input type="text" name="street" class="form-control" >
-                          <br>
                           <label class="form-label">Postcode</label>
-                          <input type="text" name="zip" class="form-control" >
+                          <input type="text" id="zip" name="zip" class="form-control" >
+                          <br>
+                          <label class="form-label">Huisnummer</label>
+                          <input type="text" id="hnr" name="number" class="form-control" >
+                          <br>
+                          <label class="form-label">Straat</label>
+                          <input type="text" id="street" name="street" class="form-control" >
+                          <br>
+                          <label class="form-label">Stad</label>
+                          <input type="text" id="city" name="city" class="form-control" >
                           <br>
                           <label class="form-label">Tel. Nummer</label>
                           <input type="text" name="tel" class="form-control" >
@@ -81,4 +84,31 @@
         </div>
     </div>
 </div>
+
+
+<script>
+  $(document).ready(function () {
+    $('#hnr').focusout(function (e) {
+      e.preventDefault();
+
+      $.ajax({
+        "async": true,
+        "crossDomain": true,
+        "url": "https://api.postcodeapi.nu/v2/addresses/?postcode=" + $('#zip').val() + "&number=" + $('#hnr').val(),
+        "method": "GET",
+        "headers": {
+          "x-api-key": "eQwbdysRpp16m01kld7C73CkxZjK4SBv6FlxdFU8",
+          "accept": "application/hal+json"
+        }
+      }).done(function (response) {
+        var addresses = response._embedded.addresses[0];
+
+        $('#street').val(addresses.street);
+        $('#city').val(addresses.municipality.label)
+
+        console.log(addresses);
+      });
+    });
+  });
+</script>
 @endsection
