@@ -58,10 +58,10 @@
                           <input type="text" id="hnr" name="number" class="form-control" >
                           <br>
                           <label class="form-label">Straat</label>
-                          <input type="text" id="street" name="street" class="form-control" >
+                          <input type="text" id="street" name="street" class="form-control" disabled>
                           <br>
                           <label class="form-label">Stad</label>
-                          <input type="text" id="city" name="city" class="form-control" >
+                          <input type="text" id="city" name="city" class="form-control" disabled>
                           <br>
                           <label class="form-label">Tel. Nummer</label>
                           <input type="text" name="tel" class="form-control" >
